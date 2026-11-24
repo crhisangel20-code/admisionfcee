@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
     <title>Mapa Inteligente UAGRM</title>
-    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0A4A35">
     <link rel="icon" type="image/jpeg" href="mascotafcee.jpg">
 
@@ -7311,21 +7310,21 @@ header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100
 })();
 </script>
 <script>
-    // Conectar los nuevos botones del panel con las funciones originales
+    // Conexión segura de los botones nuevos
     document.addEventListener("DOMContentLoaded", function() {
-        // Botón Admisión
         const btnAdmision = document.getElementById('btnAccesoAdmision');
         if (btnAdmision) {
             btnAdmision.addEventListener('click', function() {
-                document.getElementById('modalAdmisionOverlay').classList.remove('hidden');
+                const modal = document.getElementById('modalAdmisionOverlay');
+                if (modal) modal.classList.remove('hidden');
             });
         }
 
-        // Botón Eventos
         const btnEventos = document.getElementById('btnAccesoEventos');
         if (btnEventos) {
             btnEventos.addEventListener('click', function() {
-                document.getElementById('modalEventosOverlay').classList.remove('hidden');
+                const modal = document.getElementById('modalEventosOverlay');
+                if (modal) modal.classList.remove('hidden');
             });
         }
     });
