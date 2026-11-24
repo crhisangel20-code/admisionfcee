@@ -6,7 +6,7 @@
     <title>Mapa Inteligente UAGRM</title>
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0A4A35">
-    <link rel="icon" type="image/png" href="esscudo.png">
+    <link rel="icon" type="image/png" href="mascotafcee.jpg">
 
     <!-- ===== Open Graph: solo banner + enlace, sin descripción ===== -->
     <meta property="og:title" content="Mapa Inteligente UAGRM">
@@ -1694,7 +1694,7 @@ body.rol-admin main { padding-top: 70px; }
     <div class="portada-franja"><span></span><span></span><span></span></div>
     <div class="portada-halo"></div>
     <div class="portada-contenido">
-        <img src="https://raw.githubusercontent.com/crhisangel20-code/uagrmlocalizacio/main/esscudo.png" alt="Escudo de Santa Cruz de la Sierra" class="portada-escudo" />
+        <img src="https://raw.githubusercontent.com/crhisangel20-code/uagrmlocalizacio/main/mascotafcee.jpg" alt="Escudo de Santa Cruz de la Sierra" class="portada-escudo" />
         <div class="portada-eyebrow">Universidad Autónoma Gabriel René Moreno</div>
         <h1 class="portada-titulo">Mapa Inteligente <span class="accent">UAGRM</span></h1>
         <p class="portada-sub">Sistema de geolocalización y rutas dentro del campus universitario, con identidad cruceña</p>
@@ -1710,7 +1710,7 @@ body.rol-admin main { padding-top: 70px; }
     <div class="franja-bandera"><span></span><span></span><span></span></div>
 
     <header class="hero">
-        <img class="emblema" src="https://raw.githubusercontent.com/crhisangel20-code/uagrmlocalizacio/main/esscudo.png" alt="Escudo de Santa Cruz de la Sierra" />
+        <img class="emblema" src="https://raw.githubusercontent.com/crhisangel20-code/uagrmlocalizacio/main/mascotafcee.jpg" alt="Escudo de Santa Cruz de la Sierra" />
 
         <div class="titulo-bloque">
             <h1>Mapa Inteligente <span class="accent">UAGRM</span></h1>
@@ -6900,229 +6900,6 @@ body #contenedor3D > #btnTerminarRuta {
             avisado = false;
         }
     }, 3000);
-})();
-</script>
-<style>
-/* ---- Colores de la polera del zorro: azul, marino, naranja y blanco ---- */
-:root{
-  --verde-bandera:#0553F5;   /* azul polera */
-  --verde-oscuro:#0A1F5C;    /* azul marino (mangas/pantalón) */
-  --verde-suave:#E8F0FF;
-  --oro-escudo:#FF6B35;      /* naranja del zorro */
-  --oro-claro:#FF9A73;
-  --tierra:#B8381A;
-  --cielo:#2F7BFF;
-  --border-soft:rgba(5,83,245,.16);
-}
-header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100%)!important}
-.portada{background:radial-gradient(circle at 20% 20%,rgba(255,107,53,.22),transparent 45%),linear-gradient(150deg,#0A1F5C 0%,#0553F5 60%,#2F7BFF 100%)!important}
-.modal-login h2,.adm-conocenos{color:#0A1F5C}
-#btnLlevameTarjeta{background:#0553F5!important}
-#pestanaLateral{background:#FF6B35!important;color:#fff!important}
-.ranking-item:hover{background:#DCE7FF}
-.aviso-3d{background:rgba(10,31,92,.92)!important}
- 
-/* ---- Mascota (la imagen tiene fondo oscuro, la enmarcamos) ---- */
-.portada-escudo{width:clamp(150px,38vw,230px)!important;height:auto!important;border-radius:28px;border:4px solid #FF6B35;background:#1D2124}
-.emblema{width:64px!important;height:64px!important;border-radius:50%!important;object-fit:cover;object-position:25% 0%;border:3px solid #FF6B35;padding:0!important;background:#1D2124}
- 
-/* ---- Botón pequeño de administrador en la esquina de la portada ---- */
-#btnPortadaAdmin{display:none!important}
-#btnEsquinaAdmin{position:absolute;top:calc(12px + env(safe-area-inset-top));left:12px;z-index:10;
-  width:46px;height:46px;border-radius:50%;border:2px solid rgba(255,255,255,.55);
-  background:rgba(255,255,255,.14);color:#fff;font-size:1.3rem;cursor:pointer}
-#btnEsquinaAdmin:hover{background:rgba(255,255,255,.3)}
- 
-/* ---- Panel de colegios (administrador) ---- */
-#btnColegiosAdmin{flex:0 0 100%!important;width:100%!important;min-height:60px;margin:0!important;
-  font-size:1.1rem;border-radius:16px;background:#FF6B35!important;color:#0A1F5C!important}
-.col-filtros{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
-.col-filtros button{min-height:44px;padding:0 14px;border-radius:22px;border:2px solid var(--border-soft);
-  background:var(--bg-card);color:var(--text-main);font-weight:600;cursor:pointer;font-family:var(--font-body)}
-.col-filtros button.on{background:#0553F5;color:#fff;border-color:#0553F5}
-.col-btn{display:flex;align-items:center;justify-content:center;text-decoration:none;text-align:center;flex:1 1 100%}
-.col-etq{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 10px;border-radius:20px;background:#E8F0FF;color:#0A1F5C}
-.adm-llegar-sel{width:100%;min-height:52px;font-size:1rem;margin:8px 0;padding:0 10px;border-radius:12px;
-  border:2px solid var(--border-soft);background:var(--bg-card);color:var(--text-main)}
-.btn-fuera-gm{display:flex;align-items:center;justify-content:center;text-decoration:none;
-  background:#0553F5!important;margin-bottom:8px}
-</style>
- 
-<script>
-(function () {
-  'use strict';
-  var $ = function (id) { return document.getElementById(id); };
-  var e = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
-    return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]; }); };
- 
-  // =================== AJUSTES QUE PUEDES CAMBIAR ===================
-  var MASCOTA = 'https://raw.githubusercontent.com/crhisangel20-code/admisionfcee/main/admisionfcee/mascotafcee.jpg';
- 
-  // PUERTA de la universidad. Por ahora se busca por nombre.
-  // Para mayor precisión: en Google Maps mantén presionada la puerta, copia los
-  // dos números que aparecen (ej. -17.7742, -63.1951) y ponlos en lat y lng.
-  var PUERTA = {
-    lat: null, lng: null,
-    texto: 'Universidad Autónoma Gabriel René Moreno, Ciudad Universitaria, Santa Cruz de la Sierra, Bolivia'
-  };
- 
-  // LISTA DE COLEGIOS. Para agregar uno, copia una línea y cambia los datos.
-  // cat puede ser: privado | fiscal | provincial   (dir y zona son opcionales)
-  var COLEGIOS = [
-    {n:'Colegio Británico Santa Cruz', cat:'privado'},
-    {n:'Santa Cruz International School', cat:'privado'},
-    {n:'Sierra School', cat:'privado'},
-    {n:'Colegio Particular Nueva América', cat:'privado'},
-    {n:'Colegio Fe y Alegría María Magdalena Postel', cat:'fiscal'},
-    {n:'Florida National College', cat:'fiscal'},
-    {n:'Unidad Educativa Máximo Diescher II', cat:'fiscal'},
-    {n:'Arzobispo Daniel Rivero', cat:'fiscal'},
-    {n:'Colegio Gran Paititi', cat:'provincial', zona:'Warnes'},
-    {n:'Centro Educativo Beato Adolfo Kolping', cat:'provincial', zona:'Warnes', dir:'Calle Saavedra 264'},
-    {n:'U. E. Elvira Castedo Vda. de Jordan', cat:'provincial', zona:'Warnes'},
-    {n:'Constantino School Cuéllar', cat:'provincial', zona:'Warnes'},
-    {n:'Unidad Educativa Eugenia Convention Ravasco', cat:'provincial', zona:'Warnes'},
-    {n:'Unidad Educativa Nuestra Señora Del Rosario', cat:'provincial', zona:'Warnes'},
-    {n:'Colegio Melchor Pinto Parada', cat:'provincial', zona:'Warnes', dir:'RN 4'},
-    {n:'Colegio Integración Del Norte', cat:'provincial', zona:'Warnes'},
-    {n:'National College La Guardia', cat:'provincial', zona:'La Guardia'},
-    {n:'Jose Mariano Serrano I', cat:'provincial', zona:'La Guardia'},
-    {n:'Colegio Jose Vicente Soliz Y Ramos', cat:'provincial', zona:'La Guardia'}
-  ];
-  var NOMBRE_CAT = { privado:'Privado', fiscal:'Fiscal/Público', provincial:'Provincial/Municipal' };
-  // ==================================================================
- 
-  var norm = function (s) { return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); };
-  function destinoPuerta() { return PUERTA.lat !== null ? PUERTA.lat + ',' + PUERTA.lng : PUERTA.texto; }
-  function textoColegio(c) { return c.n + (c.dir ? ', ' + c.dir : '') + (c.zona ? ', ' + c.zona : '') + ', Santa Cruz, Bolivia'; }
-  // Sin "origen", Google Maps usa tu ubicación GPS actual
-  function urlRuta(origen, destino) {
-    var u = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(destino) + '&travelmode=driving';
-    if (origen) u += '&origin=' + encodeURIComponent(origen);
-    return u;
-  }
- 
-  // ---------- 1) Mascota y colores ----------
-  document.querySelectorAll('.portada-escudo,.emblema').forEach(function (i) { i.src = MASCOTA; i.alt = 'Mascota FCEE'; });
-  var ico = document.querySelector('link[rel="icon"]'); if (ico) ico.href = MASCOTA;
-  var tc = document.querySelector('meta[name="theme-color"]'); if (tc) tc.content = '#0553F5';
- 
-  // ---------- 2) Botón pequeño de administrador en la esquina ----------
-  var esquina = document.createElement('button');
-  esquina.id = 'btnEsquinaAdmin';
-  esquina.textContent = '🔐';
-  esquina.title = 'Administradores';
-  esquina.setAttribute('aria-label', 'Entrar como administrador');
-  esquina.addEventListener('click', function () { $('btnPortadaAdmin').click(); });
-  $('portada').appendChild(esquina);
- 
-  // ---------- 3) Estudiantes: "Paso 0, llegar a la puerta" dentro de Admisión ----------
-  var opciones = '<option value="">📍 Desde mi ubicación actual (GPS)</option>' +
-    COLEGIOS.map(function (c, i) { return '<option value="' + i + '">🏫 Desde: ' + e(c.n) + '</option>'; }).join('');
-  var bloque =
-    '<div class="adm-bloque" id="admLlegar">' +
-      '<h3>🚗 Primero: llegar a la UAGRM</h3>' +
-      '<p>Google Maps te lleva hasta la <b>puerta de la universidad</b>. Al llegar, vuelve a este mapa y toca “Módulo 244”; el mapa del campus te guía por dentro.</p>' +
-      '<select class="adm-llegar-sel" id="admLlegarOrigen" aria-label="Desde dónde sales">' + opciones + '</select>' +
-      '<a class="btn-adm-ir" id="admLlegarGM" target="_blank" rel="noopener">🗺️ Abrir ruta en Google Maps</a>' +
-    '</div>';
-  var prog = document.querySelector('.adm-progreso');
-  if (prog) prog.insertAdjacentHTML('beforebegin', bloque);
-  function actualizarEnlaceLlegar() {
-    var v = $('admLlegarOrigen').value;
-    $('admLlegarGM').href = urlRuta(v === '' ? '' : textoColegio(COLEGIOS[Number(v)]), destinoPuerta());
-  }
-  if ($('admLlegarOrigen')) {
-    $('admLlegarOrigen').addEventListener('change', actualizarEnlaceLlegar);
-    actualizarEnlaceLlegar();
-  }
- 
-  // Alerta "estás fuera del campus": agregamos botón de Google Maps hasta la puerta
-  var cerrarFuera = $('btnCerrarFuera');
-  if (cerrarFuera) {
-    cerrarFuera.insertAdjacentHTML('beforebegin',
-      '<a class="btn-cerrar-modal btn-fuera-gm" id="btnFueraGM" target="_blank" rel="noopener">🗺️ Ir a la puerta con Google Maps</a>');
-    $('btnFueraGM').href = urlRuta('', destinoPuerta());
-  }
- 
-  // ---------- 4) Administrador: Colegios y rutas ----------
-  var btnCol = document.createElement('button');
-  btnCol.id = 'btnColegiosAdmin';
-  btnCol.className = 'btn-estadisticas solo-admin';
-  btnCol.textContent = '🏫 Colegios y rutas';
-  var ref = $('btnEstadisticas');
-  if (ref && ref.parentNode) ref.parentNode.insertBefore(btnCol, ref);
- 
-  var ov = document.createElement('div');
-  ov.className = 'modal-estadisticas-overlay hidden';
-  ov.style.zIndex = '10045';
-  ov.innerHTML =
-    '<div class="modal-estadisticas modal-ancho">' +
-      '<h2>🏫 Colegios y rutas</h2>' +
-      '<p class="modal-sub">Busca un colegio y abre la ruta en Google Maps.</p>' +
-      '<input class="ev-input" id="colBuscar" type="search" placeholder="Buscar colegio" autocomplete="off">' +
-      '<div class="col-filtros" id="colFiltros">' +
-        '<button type="button" data-cat="todos" class="on">Todos</button>' +
-        '<button type="button" data-cat="privado">Privados</button>' +
-        '<button type="button" data-cat="fiscal">Fiscales</button>' +
-        '<button type="button" data-cat="provincial">Provinciales</button>' +
-      '</div>' +
-      '<p class="ev-msg" id="colContador"></p>' +
-      '<div id="colLista"></div>' +
-      '<button class="btn-cerrar-estadisticas" id="colCerrar">Cerrar</button>' +
-    '</div>';
-  document.body.appendChild(ov);
- 
-  var catActual = 'todos';
-  function pintarColegios() {
-    var q = norm($('colBuscar').value.trim());
-    var lista = COLEGIOS.filter(function (c) {
-      return (catActual === 'todos' || c.cat === catActual) && norm(c.n).indexOf(q) !== -1;
-    });
-    $('colContador').textContent = lista.length + (lista.length === 1 ? ' colegio' : ' colegios');
-    $('colLista').innerHTML = lista.length ? lista.map(function (c) {
-      var donde = (c.dir ? c.dir + ' · ' : '') + (c.zona ? c.zona + ', ' : '') + 'Santa Cruz, Bolivia';
-      return '<div class="ev-card"><div class="ev-card-body">' +
-        '<span class="col-etq">' + NOMBRE_CAT[c.cat] + '</span>' +
-        '<h4>' + e(c.n) + '</h4><div class="ev-meta">' + e(donde) + '</div>' +
-        '<div class="ev-acciones">' +
-          '<a class="ev-btn col-btn" target="_blank" rel="noopener" href="' + e(urlRuta('', textoColegio(c))) + '">🚗 Cómo llegar al colegio</a>' +
-          '<a class="ev-btn ev-gm col-btn" target="_blank" rel="noopener" href="' + e(urlRuta(textoColegio(c), destinoPuerta())) + '">🎓 Del colegio a la UAGRM</a>' +
-        '</div></div></div>';
-    }).join('') : '<div class="ranking-vacio">No hay colegios con ese nombre.</div>';
-  }
-  btnCol.addEventListener('click', function () { ov.classList.remove('hidden'); pintarColegios(); });
-  $('colCerrar').addEventListener('click', function () { ov.classList.add('hidden'); });
-  ov.addEventListener('click', function (ev) { if (ev.target === ov) ov.classList.add('hidden'); });
-  $('colBuscar').addEventListener('input', pintarColegios);
-  $('colFiltros').addEventListener('click', function (ev) {
-    var b = ev.target.closest('button'); if (!b) return;
-    catActual = b.getAttribute('data-cat');
-    document.querySelectorAll('#colFiltros button').forEach(function (x) { x.classList.toggle('on', x === b); });
-    pintarColegios();
-  });
- 
-  // ---------- 5) Colores del mapa 3D (azul y naranja de la polera) ----------
-  var intentos = 0;
-  var espera = setInterval(function () {
-    intentos++;
-    var listo = false;
-    try { listo = typeof mapa3D !== 'undefined' && mapa3D && mapa3D.getLayer('calles-relleno-menor'); } catch (x) {}
-    if (!listo) { if (intentos > 160) clearInterval(espera); return; }
-    clearInterval(espera);
-    try {
-      mapa3D.getStyle().layers.forEach(function (c) {
-        if (c.type === 'background') mapa3D.setPaintProperty(c.id, 'background-color', '#EAF1FF');
-      });
-      mapa3D.setPaintProperty('edificios-3d', 'fill-extrusion-color', '#CFDCFA');
-      mapa3D.setPaintProperty('calles-borde-menor', 'line-color', '#9DB6F2');
-      mapa3D.setPaintProperty('calles-borde-mayor', 'line-color', '#FF6B35');
-      mapa3D.setPaintProperty('calles-relleno-mayor', 'line-color', '#FFD2C2');
-      mapa3D.setPaintProperty('calles-nombres', 'text-color', '#0A1F5C');
-      mapa3D.setPaintProperty('modulos-etiquetas-texto', 'text-color',
-        ['case', ['get', 'esModulo'], '#0A1F5C', '#B8381A']);
-    } catch (x) { console.warn('No se pudieron recolorear las calles:', x); }
-  }, 500);
 })();
 </script>
 </body>
