@@ -1718,6 +1718,127 @@ body.rol-admin main { padding-top: 70px; }
 /* ===== Visitante: el botón Eventos solo aparece una vez ===== */
 #btnEventos { display: none !important; }
 </style>
+<style>
+/* =========================================================
+   REDISEÑO UI/UX - PANEL Y ADMISIÓN (Nuevo)
+   ========================================================= */
+
+/* --- Nuevo Panel de Control --- */
+.panel-control {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 16px;
+    border: 1px solid var(--border-soft);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    margin-bottom: 20px;
+}
+.seccion-panel h3 {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-heading);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.botones-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+.btn-moderno {
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.btn-naranja { background: #f47b20; color: #fff; }
+.btn-naranja:hover { background: #ff8c38; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(244,123,32,0.4); }
+.btn-azul { background: #3E7CB1; color: #fff; }
+.btn-azul:hover { background: #2f6693; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(62,124,177,0.4); }
+
+.input-grupo { margin-bottom: 15px; }
+.input-grupo label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px; }
+.input-grupo select {
+    width: 100%; padding: 14px; border-radius: 12px;
+    border: 2px solid var(--border-soft); background: var(--bg-panel); font-family: var(--font-body); font-size: 1rem;
+}
+.btn-principal {
+    width: 100%; background: #0B6E4F; color: #fff; font-size: 1.1rem; padding: 18px;
+}
+.btn-principal:hover { background: #0A4A35; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(11,110,79,0.4); }
+
+.botones-secundarios { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+.btn-mini {
+    flex: 1; padding: 10px; background: var(--bg-panel); color: var(--text-heading);
+    border: 1px solid var(--border-soft); border-radius: 10px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: 0.2s;
+}
+.btn-mini:hover { background: var(--border-soft); }
+.btn-full { flex: 0 0 100%; }
+
+@media (max-width: 600px) {
+    .botones-grid { grid-template-columns: 1fr; }
+}
+
+/* --- Nueva Ventana de Admisión --- */
+.modal-admision-nuevo {
+    background: var(--bg-card);
+    width: 100%;
+    max-width: 520px;
+    max-height: 90vh;
+    border-radius: 24px;
+    padding: 30px 24px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    position: relative;
+    overflow-y: auto;
+    animation: popInModal 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.btn-cerrar-x {
+    position: absolute; top: 15px; right: 15px;
+    background: var(--bg-panel); border: none; width: 36px; height: 36px; border-radius: 50%;
+    font-size: 1.2rem; cursor: pointer; color: var(--text-main); transition: 0.2s;
+}
+.btn-cerrar-x:hover { background: #ffcccc; color: #B23A48; }
+.adm-header { text-align: center; margin-bottom: 20px; }
+.adm-header h2 { font-family: var(--font-display); color: var(--verde-oscuro); font-size: 1.6rem; }
+.adm-header p { color: var(--text-main); font-size: 0.9rem; opacity: 0.8; }
+
+/* Pasos visuales */
+.adm-paso { display: flex; gap: 15px; margin-bottom: 20px; }
+.adm-paso-num {
+    width: 32px; height: 32px; background: #3E7CB1; color: #fff; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;
+}
+.adm-paso-contenido h3 { font-size: 1.05rem; color: var(--text-heading); margin-bottom: 4px; }
+.adm-paso-contenido p { font-size: 0.85rem; color: var(--text-main); margin-bottom: 10px; line-height: 1.4; }
+.adm-check {
+    display: flex; align-items: center; gap: 10px; background: var(--bg-panel); padding: 10px 14px;
+    border-radius: 10px; margin-bottom: 8px; cursor: pointer; font-size: 0.9rem; border: 1px solid var(--border-soft);
+}
+.adm-check input { width: 20px; height: 20px; accent-color: #0B6E4F; }
+.adm-check.hecho { border-color: #0B6E4F; background: #E7F3EC; }
+.btn-adm-ir {
+    width: 100%; padding: 12px; border-radius: 10px; background: #f47b20; color: #fff;
+    font-weight: 700; border: none; cursor: pointer; margin-top: 5px; transition: 0.2s;
+}
+.btn-adm-ir:hover { background: #ff8c38; }
+.btn-principal-adm { background: #0B6E4F; padding: 16px; font-size: 1.05rem; }
+.btn-reiniciar-adm {
+    display: block; width: 100%; margin-top: 15px; padding: 12px; background: transparent;
+    border: 2px dashed var(--border-soft); border-radius: 12px; color: var(--text-main);
+    cursor: pointer; font-weight: 600;
+}
+.adm-felicidades { background: #E7F3EC; border: 2px solid #0B6E4F; border-radius: 14px; padding: 15px; text-align: center; margin-top: 15px; }
+</style>
 </head>
 <body>
 <div class="banner-offline off-oculto" id="bannerOffline"></div>
@@ -1755,27 +1876,43 @@ body.rol-admin main { padding-top: 70px; }
     </header>
 
     <main>
-        <div class="search-section">
-            <label for="targetid">📌 ¿A dónde quieres ir?</label>
-            <select id="targetid">
-                <option value="">-- Toca aquí para elegir --</option>
-            </select>
-            <!-- AÑADIDO: se quitó el cuadro de origen manual y "Calcular ruta" — ya no se usa Google Maps, solo GPS -->
-            <button class="btn-geo" id="btnMiUbicacion">🚶 Llévame al destino</button>
-            <button class="btn-estadisticas" id="btnEstadisticas">📊 Estadísticas</button>
-<button class="btn-estadisticas" id="btnEventos" style="background:#B23A48;">🎉 Eventos</button>
-<button class="btn-estadisticas" id="btnVista3D" style="background:#1B3B5F;">🧊 Vista 3D</button>
-            <!-- BOTÓN PARA SUBIR HORARIO -->
-            <button class="btn-geo" id="btnSubirHorario" style="background: var(--oro-escudo); color: var(--verde-oscuro);">
-                📄 Subir mi Horario (PDF)
-            </button>
-            <!-- Input oculto que hace la magia de abrir los archivos -->
-            <input type="file" id="inputHorarioPDF" accept="application/pdf" hidden />
+        <!-- NUEVO PANEL DE CONTROL UI/UX -->
+        <div class="panel-control">
             
-            <!-- Panel donde mostraremos el resultado -->
-            <div id="resultadoHorario" class="hidden" style="margin-top: 10px; padding: 10px; background: #fff; border: 1px solid var(--oro-escudo); border-radius: 8px; width: 100%;"></div>
-        </div>
+            <!-- BLOQUE 1: EXPLORA -->
+            <div class="seccion-panel">
+                <h3>🎓 Explora la Universidad</h3>
+                <div class="botones-grid">
+                    <button class="btn-moderno btn-naranja" id="btnAccesoAdmision">📋 Admisión FCEE</button>
+                    <button class="btn-moderno btn-azul" id="btnAccesoEventos">🎉 Eventos Universitarios</button>
+                </div>
+            </div>
 
+            <!-- BLOQUE 2: UBÍCATE -->
+            <div class="seccion-panel">
+                <h3>📍 Ubícate en el Campus</h3>
+                <div class="input-grupo">
+                    <label for="targetid">1. Selecciona tu destino:</label>
+                    <select id="targetid">
+                        <option value="">-- Toca aquí para elegir --</option>
+                    </select>
+                </div>
+                <button class="btn-moderno btn-principal" id="btnMiUbicacion">🚶 2. Llévame al destino</button>
+                
+                <div class="botones-secundarios">
+                    <button class="btn-mini" id="btnEstadisticas">📊 Estadísticas</button>
+                    <button class="btn-mini" id="btnVista3D">🧊 Vista 3D</button>
+                    <button class="btn-mini btn-full" id="btnSubirHorario">📄 Subir mi Horario (PDF)</button>
+                </div>
+                <input type="file" id="inputHorarioPDF" accept="application/pdf" hidden />
+                <div id="resultadoHorario" class="hidden" style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 8px; width: 100%;"></div>
+            </div>
+            
+            <!-- Botones ocultos que el sistema original necesita -->
+            <div style="display:none;">
+                <button id="btnEventos"></button>
+            </div>
+        </div>
         <div class="leyenda" id="leyenda"></div>
         <div class="panel-offline" id="panelOffline">
             <div class="estado-offline" id="estadoOffline">Comprobando…</div>
@@ -1980,78 +2117,68 @@ body.rol-admin main { padding-top: 70px; }
 </div>
 
 <!-- ===== Admisión FCEE (nuevos bachilleres) ===== -->
+<!-- ===== Admisión FCEE (Rediseñado UI/UX) ===== -->
 <div class="modal-estadisticas-overlay hidden" id="modalAdmisionOverlay" style="z-index:10040;">
-    <div class="modal-estadisticas">
-        <h2>🎓 Admisión FCEE</h2>
-        <p class="modal-sub">Para estudiantes de colegio recién egresados (promoción).</p>
-<!-- Conócenos -->
-<details class="adm-conocenos">
-    <summary>🏛️ Conócenos</summary>
-    <div class="adm-conocenos-cuerpo">
-        <p>Conoce la Facultad de Ciencias Económicas y Empresariales y síguenos en redes.</p>
-        <a class="btn-adm-ir" href="https://www.uagrm.edu.bo/facultades/fcee" target="_blank" rel="noopener">🌐 Conoce la facultad</a>
-        <div class="adm-redes">
-            <a class="red-ig" href="https://www.instagram.com/admision.fcee/" target="_blank" rel="noopener">📸 Instagram</a>
-            <a class="red-fb" href="https://www.facebook.com/people/Admisi%C3%B3n-Estudiantil-uagrm-fcee/61555345370054/?sk=reels_tab&locale=es_LA" target="_blank" rel="noopener">👍 Facebook</a>
-            <a class="red-tt" href="https://www.tiktok.com/discover/uagrm-facultad-de-ciencias-econ%C3%B3micas-y-empresariales" target="_blank" rel="noopener">🎵 TikTok</a>
+    <div class="modal-admision-nuevo">
+        
+        <button class="btn-cerrar-x" id="btnCerrarAdmision">✖</button>
+        
+        <div class="adm-header">
+            <h2>🎓 Admisión FCEE</h2>
+            <p>Guía paso a paso para nuevos bachilleres</p>
         </div>
-    </div>
-</details>
-        <!-- Avance -->
+
         <div class="adm-progreso">
             <div class="adm-progreso-barra"><div id="admBarra"></div></div>
             <span id="admProgresoTxt">0 de 5 requisitos listos</span>
         </div>
 
-        <!-- 1. Formulario -->
-        <div class="adm-bloque">
-            <h3>1️⃣ Formulario de registro de datos</h3>
-            <p>Llénalo en línea. Se abre en otra pestaña; cuando termines, vuelve aquí.</p>
-            <a class="btn-adm-ir" id="admAbrirForm" href="https://forms.gle/HJhz7xPpH6mXH5bW8" target="_blank" rel="noopener">📝 Abrir el formulario</a>
-            <p class="adm-enlace">https://forms.gle/HJhz7xPpH6mXH5bW8</p>
-
-            <div class="adm-pregunta adm-oculto" id="admPreguntaForm">
-                <b>¿Ya enviaste el formulario?</b>
-                <div class="adm-pregunta-botones">
-                    <button type="button" id="admFormSi">✅ Sí, ya lo envié</button>
-                    <button type="button" id="admFormNo">Todavía no</button>
-                </div>
+        <!-- PASO 1 -->
+        <div class="adm-paso">
+            <div class="adm-paso-num">1</div>
+            <div class="adm-paso-contenido">
+                <h3>Llega a la universidad</h3>
+                <p>Si vienes de fuera, usa Google Maps para llegar a la puerta principal de la UAGRM.</p>
+                <!-- Botón de mapa externo opcional -->
+                <label class="adm-check">
+                    <input type="checkbox" data-adm-check="form">
+                    <span>Ya estoy en el campus</span>
+                </label>
             </div>
-
-            <label class="adm-item">
-                <input type="checkbox" data-adm-check="form">
-                <span>Ya llené y envié el formulario</span>
-            </label>
         </div>
 
-        <!-- 2. Pago -->
-        <div class="adm-bloque">
-            <h3>2️⃣ Pago de matrícula</h3>
-            <p>En las ventanillas de la FCEE-UAGRM, <b>módulo 244, planta baja</b>.</p>
-            <button class="btn-adm-ir" data-adm-ir="35">📍 Llevarme al módulo 244</button>
+        <!-- PASO 2 -->
+        <div class="adm-paso">
+            <div class="adm-paso-num">2</div>
+            <div class="adm-paso-contenido">
+                <h3>Encuentra tu destino</h3>
+                <p>Acércate al <b>Módulo 244</b> para recoger tu formulario y pagar la matrícula.</p>
+                <button class="btn-adm-ir" data-adm-ir="35">📍 Llévame al Módulo 244</button>
+            </div>
         </div>
 
-        <!-- 3. Requisitos -->
-        <div class="adm-bloque">
-            <h3>3️⃣ Tus 5 requisitos</h3>
-            <p>Marca lo que ya tienes. Los documentos se <b>revisan en el módulo 244</b>.</p>
-            <label class="adm-item"><input type="checkbox" data-adm-check="titulo"><span>Título de bachiller (original y copia)</span></label>
-            <label class="adm-item"><input type="checkbox" data-adm-check="libreta"><span>Libreta o certificado de notas del último año de secundaria (original y fotocopia)</span></label>
-            <label class="adm-item"><input type="checkbox" data-adm-check="cedula"><span>Cédula de identidad vigente (original y fotocopia)</span></label>
-            <label class="adm-item"><input type="checkbox" data-adm-check="recibo"><span>Recibo original del pago de PSA/CUP</span></label>
-            <label class="adm-item"><input type="checkbox" data-adm-check="copia"><span>Copia del formulario de pre-inscripción <small>(se marca sola al enviar el formulario; recuerda llevar tu copia)</small></span></label>
+        <!-- PASO 3 -->
+        <div class="adm-paso">
+            <div class="adm-paso-num">3</div>
+            <div class="adm-paso-contenido">
+                <h3>Prepara tus documentos</h3>
+                <p>Marca los documentos que ya tienes listos:</p>
+                <label class="adm-check"><input type="checkbox" data-adm-check="titulo"><span>Título de bachiller</span></label>
+                <label class="adm-check"><input type="checkbox" data-adm-check="libreta"><span>Libreta de notas</span></label>
+                <label class="adm-check"><input type="checkbox" data-adm-check="cedula"><span>Cédula de identidad</span></label>
+                <label class="adm-check"><input type="checkbox" data-adm-check="recibo"><span>Recibo de pago PSA/CUP</span></label>
+                <label class="adm-check"><input type="checkbox" data-adm-check="copia"><span>Copia del formulario</span></label>
+            </div>
         </div>
 
-        <!-- 4. Felicidades (aparece al completar los 5) -->
-        <div class="adm-bloque adm-felicidades adm-oculto" id="admFelicidades">
-            <h3>🎉 ¡Felicidades! Ya completaste tus requisitos</h3>
-            <p>Siguiente paso: que revisen tus documentos en el <b>módulo 244</b> y luego déjalos en el <b>Pabellón 145</b>.</p>
-            <button class="btn-adm-ir" data-adm-ir="35">📍 Revisión: módulo 244</button>
-            <button class="btn-adm-ir adm-principal" data-adm-ir="7">📍 Entregar en el Pabellón 145</button>
+        <!-- FELICIDADES -->
+        <div class="adm-felicidades adm-oculto" id="admFelicidades">
+            <h3>🎉 ¡Todo listo!</h3>
+            <p>Ahora dirígete al <b>Pabellón 145</b> para entregar tus documentos.</p>
+            <button class="btn-adm-ir btn-principal-adm" data-adm-ir="7">📍 Entregar en el Pabellón 145</button>
         </div>
 
-        <button class="btn-adm-reiniciar" id="admReiniciar" type="button">↺ Reiniciar mi lista</button>
-        <button class="btn-cerrar-estadisticas" id="btnCerrarAdmision">Cerrar</button>
+        <button class="btn-reiniciar-adm" id="admReiniciar" type="button">↺ Reiniciar mi lista</button>
     </div>
 </div>
 <!-- Alerta grande: fuera del campus -->
