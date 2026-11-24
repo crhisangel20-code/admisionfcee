@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
     <title>Mapa Inteligente UAGRM</title>
     <meta name="theme-color" content="#0A4A35">
-    <link rel="icon" type="image/jpeg" href="mascotafcee.jpg">
-
+<link rel="icon" type="image/png" href="mascota.png">
     <!-- ===== Open Graph: solo banner + enlace, sin descripción ===== -->
-    <meta property="og:title" content="Mapa Inteligente UAGRM">
-    <meta property="og:image" content="https://raw.githubusercontent.com/crhisangel20-code/uagrmlocalizacio/main/banner_uagrm_og.png">
-    <meta property="og:url" content="https://crhisangel20-code.github.io/uagrmlocalizacio/">
+    <meta property="og:image" content="https://crhisangel20-code.github.io/admisionfcee/banner_uagrm_og.png">
+    <meta name="twitter:image" content="https://crhisangel20-code.github.io/admisionfcee/banner_uagrm_og.png">
+    <meta property="og:url" content="https://crhisangel20-code.github.io/admisionfcee/">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Mapa Inteligente UAGRM">
-    <meta name="twitter:image" content="https://raw.githubusercontent.com/crhisangel20-code/uagrmlocalizacio/main/banner_uagrm_og.png">
+    <meta name="twitter:image" content="https://crhisangel20-code.github.io/admisionfcee/main/banner_uagrm_og.png">
 
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
@@ -35,6 +34,7 @@
       gtag('js', new Date());
       gtag('config', 'G-0XWZF34L0N');
     </script>
+<style>
 /* =========================================================
    ETAPA 3: GUÍA PARA PRINCIPIANTES
    ========================================================= */
@@ -1881,7 +1881,9 @@ body.rol-admin .search-section > label,
 body.rol-admin .footer-note,
 body.rol-admin .nota-mapa { display: none !important; }
 body.rol-admin main { padding-top: 70px; }
+</style>
 <style>
+
 /* ===== Visitante: el botón Eventos solo aparece una vez ===== */
 #btnEventos { display: none !important; }
 </style>
@@ -2023,8 +2025,8 @@ body.rol-admin main { padding-top: 70px; }
     box-shadow: 0 25px 50px rgba(0,0,0,0.3);
     position: relative;
     display: flex; flex-direction: column;
-    overflow-y: auto;0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    overflow: hidden;
+    animation: subirModal 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow-y: auto;
 }
 @keyframes subirModal {
     from { transform: translateY(30px); opacity: 0; }
@@ -2314,7 +2316,7 @@ html, body {
         <p class="portada-subtitulo">Tu guía virtual para explorar el campus, conocer los pasos de admisión y encontrar tu destino.</p>
 
         <!-- Mascota protagonista -->
-        <img src="mascotafcee.jpg" alt="Mascota FCEE" class="portada-mascota" onerror="this.style.display='none'" />
+        <img src="mascota.png" alt="Mascota FCEE" class="portada-mascota" onerror="this.style.display='none'" />
         
         <!-- Explicación visual para principiantes -->
         <div class="portada-caracteristicas">
@@ -2344,7 +2346,6 @@ html, body {
     <div class="franja-bandera"><span></span><span></span><span></span></div>
 
     <header class="hero">
-<img class="emblema" src="mascotafcee.jpg" alt="Mascota FCEE" />
         <div class="titulo-bloque">
             <h1>Mapa Inteligente <span class="accent">UAGRM</span></h1>
             <div class="subtitulo">Universidad Autónoma Gabriel René Moreno · Orientación y rutas en campus</div>
@@ -2380,16 +2381,19 @@ html, body {
             </div>
 
             <div class="acciones-grid">
-                <!-- 3. EXPLORAR / BUSCAR LUGAR -->
-                <div class="accion-card card-buscar">
-                    <div class="accion-icon">📍</div>
-                    <div class="accion-info" style="width: 100%;">
-                        <h4>Buscar lugar</h4>
-                        <select id="targetid">
-                            <option value="">Encuentra tu destino</option>
-                        </select>
-                    </div>
-                </div>
+   <!-- 3. BUSCAR LUGAR -->
+<button type="button" class="accion-card card-buscar" id="btnTarjetaBuscar">
+    <div class="accion-icon">📍</div>
+    <div class="accion-info">
+        <h4>Buscar lugar</h4>
+        <p>Elige tu facultad o módulo</p>
+    </div>
+</button>
+<div style="display:none;">
+    <select id="targetid">
+        <option value="">Encuentra tu destino</option>
+    </select>
+</div>
 
                 <!-- 4. CÓMO LLEGAR -->
                 <button class="accion-card card-ruta" id="btnMiUbicacion">
@@ -2617,31 +2621,29 @@ html, body {
     </div>
 </div>
 
-<!-- ===== Admisión FCEE (Etapa 4: Diseño Compacto) ===== -->
+<!-- ===== Admisión FCEE ===== -->
 <div class="modal-estadisticas-overlay hidden" id="modalAdmisionOverlay" style="z-index:10040;">
     <div class="modal-moderno">
-        
-        <!-- Botón de cerrar superior -->
-        <button class="btn-cerrar-moderno" id="btnCerrarAdmision">✖</button>
-        
+        <button class="btn-cerrar-moderno" id="btnCerrarAdmision" aria-label="Cerrar">✖</button>
+
         <div class="modal-header-moderno">
             <h2>🎓 Admisión FCEE</h2>
             <p>Guía paso a paso para nuevos bachilleres</p>
         </div>
 
-        <!-- Barra de progreso -->
-        <div class="adm-progreso">
-            <div class="adm-progreso-barra"><div id="admBarra"></div></div>
-            <span id="admProgresoTxt">0 de 5 requisitos listos</span>
-        </div>
-
         <div class="modal-body-moderno">
+            <div class="adm-progreso">
+                <div class="adm-progreso-barra"><div id="admBarra"></div></div>
+                <span id="admProgresoTxt">0 de 5 requisitos listos</span>
+            </div>
+
             <!-- PASO 1 -->
             <div class="paso-card">
                 <div class="paso-numero">1</div>
                 <div class="paso-contenido">
                     <h3>Llega a la universidad</h3>
-                    <p>Si vienes de fuera, usa Google Maps para llegar a la puerta principal de la UAGRM.</p>
+                    <p>Google Maps te lleva hasta la <b>puerta de la UAGRM</b> desde donde estás.</p>
+                    <a class="btn-accion-modal" id="admLlegarGM" target="_blank" rel="noopener" href="#">🗺️ Abrir ruta en Google Maps</a>
                     <label class="adm-check">
                         <input type="checkbox" data-adm-check="form">
                         <span>Ya estoy en el campus</span>
@@ -2664,7 +2666,7 @@ html, body {
                 <div class="paso-numero">3</div>
                 <div class="paso-contenido">
                     <h3>Prepara tus documentos</h3>
-                    <p>Marca los documentos que ya tienes listos:</p>
+                    <p>Marca los que ya tienes listos:</p>
                     <label class="adm-check"><input type="checkbox" data-adm-check="titulo"><span>Título de bachiller</span></label>
                     <label class="adm-check"><input type="checkbox" data-adm-check="libreta"><span>Libreta de notas</span></label>
                     <label class="adm-check"><input type="checkbox" data-adm-check="cedula"><span>Cédula de identidad</span></label>
@@ -7601,8 +7603,7 @@ header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100
     return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]; }); };
  
   // =================== AJUSTES QUE PUEDES CAMBIAR ===================
-  var MASCOTA = 'https://raw.githubusercontent.com/crhisangel20-code/admisionfcee/main/admisionfcee/mascotafcee.jpg';
- 
+  var MASCOTA = 'mascota.png'; 
   // PUERTA de la universidad. Por ahora se busca por nombre.
   // Para mayor precisión: en Google Maps mantén presionada la puerta, copia los
   // dos números que aparecen (ej. -17.7742, -63.1951) y ponlos en lat y lng.
@@ -7661,26 +7662,8 @@ header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100
   esquina.addEventListener('click', function () { $('btnPortadaAdmin').click(); });
   $('portada').appendChild(esquina);
  
-  // ---------- 3) Estudiantes: "Paso 0, llegar a la puerta" dentro de Admisión ----------
-  var opciones = '<option value="">📍 Desde mi ubicación actual (GPS)</option>' +
-    COLEGIOS.map(function (c, i) { return '<option value="' + i + '">🏫 Desde: ' + e(c.n) + '</option>'; }).join('');
-  var bloque =
-    '<div class="adm-bloque" id="admLlegar">' +
-      '<h3>🚗 Primero: llegar a la UAGRM</h3>' +
-      '<p>Google Maps te lleva hasta la <b>puerta de la universidad</b>. Al llegar, vuelve a este mapa y toca “Módulo 244”; el mapa del campus te guía por dentro.</p>' +
-      '<select class="adm-llegar-sel" id="admLlegarOrigen" aria-label="Desde dónde sales">' + opciones + '</select>' +
-      '<a class="btn-adm-ir" id="admLlegarGM" target="_blank" rel="noopener">🗺️ Abrir ruta en Google Maps</a>' +
-    '</div>';
-  var prog = document.querySelector('.adm-progreso');
-  if (prog) prog.insertAdjacentHTML('beforebegin', bloque);
-  function actualizarEnlaceLlegar() {
-    var v = $('admLlegarOrigen').value;
-    $('admLlegarGM').href = urlRuta(v === '' ? '' : textoColegio(COLEGIOS[Number(v)]), destinoPuerta());
-  }
-  if ($('admLlegarOrigen')) {
-    $('admLlegarOrigen').addEventListener('change', actualizarEnlaceLlegar);
-    actualizarEnlaceLlegar();
-  }
+   // ---------- 3) Botón de Google Maps hasta la puerta (Paso 1 de Admisión) ----------
+  if ($('admLlegarGM')) $('admLlegarGM').href = urlRuta('', destinoPuerta());
  
   // Alerta "estás fuera del campus": agregamos botón de Google Maps hasta la puerta
   var cerrarFuera = $('btnCerrarFuera');
@@ -7785,7 +7768,7 @@ header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100
                 <div class="guia-num">1</div>
                 <div class="guia-texto">
                     <h3>¿Qué lugar buscas?</h3>
-                    <p>Usa el menú desplegable en la tarjeta "Buscar lugar" para elegir tu facultad o módulo.</p>
+                    <p>Toca "Buscar lugar" y elige tu facultad o módulo en la lista que se abre arriba. para elegir tu facultad o módulo.</p>
                 </div>
             </div>
             
@@ -7801,7 +7784,7 @@ header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100
                 <div class="guia-num">3</div>
                 <div class="guia-texto">
                     <h3>Toca "Cómo llegar"</h3>
-                    <p>Presiona la tarjeta verde para que el sistema trace la ruta y active el GPS.</p>
+                    <p>Presiona la tarjeta "Cómo llegar" para que el sistema trace la ruta y active el GPS.</p>
                 </div>
             </div>
             
@@ -7809,7 +7792,7 @@ header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100
                 <div class="guia-num">4</div>
                 <div class="guia-texto">
                     <h3>Sigue la ruta</h3>
-                    <p>Camina siguiendo la flecha azul. ¡El mapa te avisará cuando estés cerca!</p>
+                    <p>Camina siguiendo la flecha lila. ¡El mapa te avisará cuando estés cerca!</p>
                 </div>
             </div>
         </div>
@@ -7831,6 +7814,138 @@ header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100
             btnEntendido.addEventListener('click', () => modalGuia.classList.add('hidden'));
         }
     });
+</script>
+<style>
+/* ===== 1. Quitar lo repetido y lo que no corresponde ===== */
+#filaAccesos { display: none !important; }
+#btnSubirHorario, #inputHorarioPDF, #resultadoHorario { display: none !important; }
+
+/* ===== 2. Tarjetas ===== */
+.card-buscar { cursor: pointer !important; }
+.card-buscar:hover { transform: translateY(-4px) !important; box-shadow: 0 8px 20px rgba(0,0,0,.08) !important; }
+#hojaInferior #btnLlevameTarjeta { display: block !important; }
+
+/* ===== 3. Portada ===== */
+.portada { overflow-y: auto !important; }
+.portada-contenido { gap: 8px !important; padding: 12px 16px !important; }
+.portada-titulo { font-size: clamp(2rem, 6vw, 3.6rem) !important; margin-bottom: 0 !important; }
+.portada-subtitulo { margin-bottom: 0 !important; }
+.portada-halo {
+    top: 50% !important;
+    background: radial-gradient(circle, rgba(255,255,255,.30) 0%, rgba(255,107,53,.20) 35%, transparent 65%) !important;
+}
+.portada-mascota {
+    width: auto !important;
+    height: clamp(200px, 40vh, 380px) !important;
+    max-width: 80vw !important;
+    object-fit: contain !important;
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    filter: drop-shadow(0 18px 28px rgba(0,0,0,.45)) !important;
+}
+.portada-caracteristicas { margin: 4px 0 8px !important; padding: 10px 16px !important; }
+.portada-botones { margin-top: 4px !important; }
+
+/* ===== 4. Ventana de Admisión: todo se desliza en un solo lugar ===== */
+.modal-moderno { overflow: hidden !important; }
+.modal-header-moderno, .modal-footer-moderno { flex-shrink: 0; }
+.modal-body-moderno { flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.modal-body-moderno .adm-progreso {
+    position: sticky; top: 0; z-index: 2;
+    background: var(--bg-card); padding: 4px 0 10px; margin: 0 0 8px;
+}
+.adm-check span { color: var(--text-main); line-height: 1.3; }
+a.btn-accion-modal {
+    display: block; text-align: center; text-decoration: none;
+    box-sizing: border-box; margin-bottom: 10px;
+}
+body.dark-mode .paso-card { background: #33334a; }
+body.dark-mode .adm-check { background: #2a2a3e; }
+</style>
+
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  function volverAlMapa() { var v = $('btnVolverMapa'); if (v) v.click(); }
+
+  // ---------- 1. Tarjeta "Cómo llegar" vuelve junto a las otras 3 ----------
+  var btnLl = $('btnMiUbicacion');
+  var grids = document.querySelectorAll('.acciones-grid');
+  if (btnLl && grids[1]) grids[1].appendChild(btnLl);
+
+  var CARD_HTML = '<div class="accion-icon">🛣️</div><div class="accion-info"><h4>Cómo llegar</h4><p>Rutas dentro del campus</p></div>';
+  if (btnLl) {
+    btnLl.innerHTML = CARD_HTML;
+    // El código original cambia el texto del botón; aquí lo dejamos como tarjeta
+    new MutationObserver(function () {
+      if (btnLl.textContent.trim() === '🚶 Llévame al destino') btnLl.innerHTML = CARD_HTML;
+    }).observe(btnLl, { childList: true, characterData: true, subtree: true });
+  }
+
+  // ---------- 2. Buscar lugar: abre la lista de destinos ----------
+  function abrirBuscador() {
+    volverAlMapa();
+    var s = $('targetid');
+    setTimeout(function () {
+      if (!s) return;
+      s.focus();
+      try { s.showPicker(); } catch (e) {}
+    }, 350);
+  }
+  if ($('btnTarjetaBuscar')) $('btnTarjetaBuscar').addEventListener('click', abrirBuscador);
+
+  // "Cómo llegar" sin destino elegido: abre la lista; con destino, cierra el menú y sigue
+  if (btnLl && btnLl.parentNode) {
+    btnLl.parentNode.addEventListener('click', function (ev) {
+      if (!ev.target.closest('#btnMiUbicacion')) return;
+      if (!$('targetid').value) { ev.stopPropagation(); abrirBuscador(); }
+      else { volverAlMapa(); }
+    }, true);
+  }
+
+  // ---------- 3. Recordar dónde estabas al salir y volver ----------
+  var K_ENTRO = 'uagrm_entro', K_ADMIN = 'uagrm_admin', K_MODAL = 'uagrm_modal', K_SCROLL = 'uagrm_scroll';
+  function guardar(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
+  function leer(k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } }
+  function borrar(k) { try { sessionStorage.removeItem(k); } catch (e) {} }
+
+  $('btnIngresar').addEventListener('click', function () { guardar(K_ENTRO, '1'); });
+
+  new MutationObserver(function () {
+    guardar(K_ADMIN, document.body.classList.contains('rol-admin') ? '1' : '0');
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  var MODALES = { admision: 'modalAdmisionOverlay', eventos: 'modalEventosOverlay' };
+  Object.keys(MODALES).forEach(function (nombre) {
+    var el = $(MODALES[nombre]);
+    if (!el) return;
+    new MutationObserver(function () {
+      if (!el.classList.contains('hidden')) guardar(K_MODAL, nombre);
+      else if (leer(K_MODAL) === nombre) borrar(K_MODAL);
+    }).observe(el, { attributes: true, attributeFilter: ['class'] });
+  });
+
+  var cuerpoAdm = document.querySelector('#modalAdmisionOverlay .modal-body-moderno');
+  if (cuerpoAdm) cuerpoAdm.addEventListener('scroll', function () {
+    guardar(K_SCROLL, String(cuerpoAdm.scrollTop));
+  });
+
+  // Al cargar la página: si ya habías entrado, te devuelve a donde estabas
+  setTimeout(function () {
+    if (leer(K_ENTRO) !== '1') return;
+    if (leer(K_ADMIN) === '1') $('btnPortadaAdmin').click();
+    else $('btnIngresar').click();
+
+    var m = leer(K_MODAL);
+    if (!m || !MODALES[m]) return;
+    setTimeout(function () {
+      if (m === 'eventos' && typeof abrirEventos === 'function') abrirEventos();
+      else $(MODALES[m]).classList.remove('hidden');
+      if (m === 'admision' && cuerpoAdm) cuerpoAdm.scrollTop = Number(leer(K_SCROLL)) || 0;
+    }, 700);
+  }, 900);
+})();
 </script>
 </body>
 </html>
