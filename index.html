@@ -35,8 +35,71 @@
       gtag('js', new Date());
       gtag('config', 'G-0XWZF34L0N');
     </script>
+/* =========================================================
+   ETAPA 3: GUÍA PARA PRINCIPIANTES
+   ========================================================= */
+.btn-ayuda-flotante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #f47b20;
+    color: white;
+    font-size: 1.5rem;
+    border: none;
+    box-shadow: 0 4px 15px rgba(244,123,32,0.4);
+    cursor: pointer;
+    z-index: 9990;
+    transition: transform 0.2s;
+}
+.btn-ayuda-flotante:hover { transform: scale(1.1); }
 
-    <style>
+.modal-guia-overlay {
+    position: fixed; inset: 0; z-index: 10050;
+    background: rgba(10,30,20,0.6);
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+}
+.modal-guia-overlay.hidden { display: none; }
+
+.modal-guia {
+    background: var(--bg-card);
+    width: 100%; max-width: 480px;
+    border-radius: 24px; padding: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    position: relative;
+    max-height: 90vh; overflow-y: auto;
+}
+.btn-cerrar-guia {
+    position: absolute; top: 15px; right: 15px;
+    background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #666;
+}
+.modal-guia h2 {
+    font-family: var(--font-display); color: var(--verde-oscuro); font-size: 1.6rem; margin-bottom: 4px;
+}
+.guia-sub { font-size: 0.9rem; color: #666; margin-bottom: 20px; }
+
+.guia-paso {
+    display: flex; gap: 15px; margin-bottom: 20px; align-items: flex-start;
+}
+.guia-num {
+    width: 36px; height: 36px; background: #f47b20; color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.2rem; flex-shrink: 0;
+}
+.guia-texto h3 { font-size: 1rem; color: var(--text-heading); margin-bottom: 2px; }
+.guia-texto p { font-size: 0.85rem; color: var(--text-main); line-height: 1.4; }
+
+.btn-entendido {
+    width: 100%; padding: 16px; background: #0B6E4F; color: #fff;
+    border: none; border-radius: 12px; font-size: 1.1rem; font-weight: 700;
+    cursor: pointer; margin-top: 10px; transition: 0.2s;
+}
+.btn-entendido:hover { background: #0A4A35; }
+</style>    
+<style>
+
         :root {
             /* ---- Paleta cruceña: bandera verde-blanco-verde + escudo (sol, oro, cielo, tierra) ---- */
             --verde-bandera: #0B6E4F;   /* verde principal de la bandera de Santa Cruz */
@@ -1072,63 +1135,168 @@
         .portada-titulo .accent { color: #f47b20; font-style: italic; font-weight: 500; }
 
         /* La mascota protagonista */
-        .portada-mascota {
-            width: clamp(220px, 45vh, 380px);
-            height: auto;
-            z-index: 1;
-            filter: drop-shadow(0 20px 30px rgba(0,0,0,0.6));
-            animation: floatMascota 3s ease-in-out infinite;
-        }
-        @keyframes floatMascota {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
+/* =========================================================
+   ETAPA 1: PANTALLA PRINCIPAL REDISEÑADA
+   ========================================================= */
+.portada {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    background:
+        radial-gradient(circle at 50% 30%, rgba(30, 80, 150, 0.9) 0%, transparent 60%),
+        linear-gradient(135deg, #091a33 0%, #0d2c5c 50%, #091a33 100%);
+    animation: portadaEntrada 0.6s ease;
+    overflow: hidden;
+}
+@keyframes portadaEntrada {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+.portada-franja { display: flex; height: 8px; width: 100%; flex-shrink: 0; z-index: 10; }
+.portada-franja span { flex: 1; }
+.portada-franja span:nth-child(1) { background: #f47b20; }
+.portada-franja span:nth-child(2) { background: #ffffff; }
+.portada-franja span:nth-child(3) { background: #f47b20; }
+.portada-franja-abajo { margin-top: auto; }
 
-        .portada-botones {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 14px;
-            width: min(600px, 95vw);
-            margin-top: 30px;
-            z-index: 2;
-        }
-        .portada-botones button {
-            flex: 1 1 240px;
-            min-height: 64px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            font-family: var(--font-body);
-            cursor: pointer;
-            border: none;
-            transition: all 0.3s ease;
-        }
+.portada-halo {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    width: min(800px, 150vw);
+    height: min(800px, 150vw);
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(244,123,32,0.12) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+}
 
-        .btn-ingresar {
-            background: #f47b20;
-            color: #ffffff;
-            box-shadow: 0 10px 25px rgba(244,123,32,0.4);
-        }
-        .btn-ingresar:hover {
-            background: #ff8c38;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(244,123,32,0.6);
-        }
+.portada-contenido {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    gap: 12px;
+}
 
-        #btnPortadaAdmin {
-            background: transparent;
-            color: #ffffff;
-            border: 2px solid rgba(255,255,255,0.4) !important;
-        }
-        #btnPortadaAdmin:hover {
-            border-color: #ffffff !important;
-            background: rgba(255,255,255,0.1);
-        }
+.portada-eyebrow {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #f47b20;
+    margin-bottom: 5px;
+}
 
-        .portada.oculto { display: none; }
+.portada-titulo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    line-height: 1.1;
+    color: #ffffff;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.5);
+}
+.portada-titulo .accent { color: #f47b20; font-style: italic; }
 
+.portada-subtitulo {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+    color: rgba(255,255,255,0.85);
+    max-width: 500px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+}
+
+.portada-mascota {
+    width: clamp(160px, 30vh, 260px);
+    height: auto;
+    z-index: 1;
+    filter: drop-shadow(0 15px 25px rgba(0,0,0,0.5));
+    animation: floatMascota 3s ease-in-out infinite;
+}
+@keyframes floatMascota {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+}
+
+/* Indicadores de qué hace la app */
+.portada-caracteristicas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 15px 0 25px 0;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+.caracteristica-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+.caracteristica-icono { font-size: 1.2rem; }
+
+.portada-botones {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    width: min(400px, 95vw);
+    z-index: 2;
+}
+
+.btn-ingresar {
+    width: 100%;
+    min-height: 64px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: var(--font-body);
+    cursor: pointer;
+    border: none;
+    background: #f47b20;
+    color: #ffffff;
+    box-shadow: 0 10px 25px rgba(244,123,32,0.4);
+    transition: all 0.3s ease;
+}
+.btn-ingresar:hover {
+    background: #ff8c38;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(244,123,32,0.6);
+}
+
+.btn-admin-mini {
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    border: none;
+    font-size: 0.9rem;
+    font-family: var(--font-body);
+    cursor: pointer;
+    text-decoration: underline;
+    transition: 0.2s;
+}
+.btn-admin-mini:hover { color: #ffffff; }
+
+.portada.oculto { display: none; }
+
+@media (max-width: 600px) {
+    .portada-caracteristicas { flex-direction: column; align-items: flex-start; border-radius: 16px; padding: 15px; }
+    .portada-mascota { width: clamp(140px, 25vh, 200px); }
+}
         @media (max-width: 700px) {
             .portada-mascota { width: clamp(180px, 35vh, 250px); }
             .portada-titulo { margin-bottom: 15px; }
@@ -1613,8 +1781,8 @@ body:not(.rol-admin) .solo-admin { display: none !important; }
     flex:1; min-height:64px; border:none; border-radius:16px; font-size:1.05rem; font-weight:700;
     line-height:1.2; cursor:pointer; font-family:var(--font-body);
 }
-#btnAccesoEventos { background:#B23A48; color:#fff; }
-#btnAccesoAdmision { background:var(--oro-escudo); color:var(--verde-oscuro); }
+#btnAccesoEventos2 { background:#B23A48; color:#fff; }
+#btnAccesoAdmision2 { background:var(--oro-escudo); color:var(--verde-oscuro); }
 
 /* Contenido de Admisión */
 .adm-bloque { background:var(--bg-panel); border-radius:14px; padding:12px 14px; margin:10px 0; font-size:1.02rem; line-height:1.5; }
@@ -1713,152 +1881,419 @@ body.rol-admin .search-section > label,
 body.rol-admin .footer-note,
 body.rol-admin .nota-mapa { display: none !important; }
 body.rol-admin main { padding-top: 70px; }
-
+<style>
 /* ===== Visitante: el botón Eventos solo aparece una vez ===== */
 #btnEventos { display: none !important; }
 </style>
 <style>
 /* =========================================================
-   REDISEÑO UI/UX - PANEL Y ADMISIÓN (Nuevo)
+   ETAPA 2: TARJETAS DE ACCIÓN (Diseño moderno)
    ========================================================= */
-
-/* --- Nuevo Panel de Control --- */
 .panel-control {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    background: var(--bg-card);
+    background: #f8f9fc;
     padding: 20px;
-    border-radius: 16px;
-    border: 1px solid var(--border-soft);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    border-radius: 20px;
     margin-bottom: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
-.seccion-panel h3 {
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    color: var(--text-heading);
-    margin-bottom: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+
+.panel-header {
+    margin-bottom: 20px;
+    text-align: center;
 }
-.botones-grid {
+.panel-header h3 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--verde-oscuro);
+    margin-bottom: 4px;
+}
+.panel-header p {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.acciones-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
+    gap: 15px;
+    margin-bottom: 15px;
 }
-.btn-moderno {
-    border: none;
-    padding: 16px;
-    border-radius: 12px;
-    font-weight: 700;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
+
+.accion-card {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    padding: 20px 15px;
+    border-radius: 16px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: #ffffff;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.04);
 }
-.btn-naranja { background: #f47b20; color: #fff; }
-.btn-naranja:hover { background: #ff8c38; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(244,123,32,0.4); }
-.btn-azul { background: #3E7CB1; color: #fff; }
-.btn-azul:hover { background: #2f6693; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(62,124,177,0.4); }
 
-.input-grupo { margin-bottom: 15px; }
-.input-grupo label { display: block; font-size: 0.9rem; font-weight: 600; color: var(--text-main); margin-bottom: 6px; }
-.input-grupo select {
-    width: 100%; padding: 14px; border-radius: 12px;
-    border: 2px solid var(--border-soft); background: var(--bg-panel); font-family: var(--font-body); font-size: 1rem;
+.accion-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
 }
-.btn-principal {
-    width: 100%; background: #0B6E4F; color: #fff; font-size: 1.1rem; padding: 18px;
-}
-.btn-principal:hover { background: #0A4A35; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(11,110,79,0.4); }
 
-.botones-secundarios { display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
+.accion-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.accion-info h4 {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--text-heading);
+    margin-bottom: 2px;
+}
+
+.accion-info p {
+    font-size: 0.78rem;
+    color: #777;
+}
+
+/* Colores de las tarjetas */
+.card-admision { background: #fff5eb; }
+.card-admision .accion-info h4 { color: #d96a11; }
+
+.card-eventos { background: #eef4ff; }
+.card-eventos .accion-info h4 { color: #2f6693; }
+
+.card-buscar { background: #f4f7f6; cursor: default; }
+.card-buscar:hover { transform: none; box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
+.card-buscar select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border-radius: 10px;
+    border: 2px solid #d1d8d5;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    background: #fff;
+    cursor: pointer;
+}
+
+.card-ruta { background: #eefbf3; }
+.card-ruta .accion-info h4 { color: #0B6E4F; }
+
+/* Botones secundarios */
+.botones-secundarios {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
 .btn-mini {
-    flex: 1; padding: 10px; background: var(--bg-panel); color: var(--text-heading);
-    border: 1px solid var(--border-soft); border-radius: 10px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: 0.2s;
+    flex: 1;
+    padding: 12px;
+    background: #fff;
+    color: var(--text-main);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: 0.2s;
 }
-.btn-mini:hover { background: var(--border-soft); }
+.btn-mini:hover { background: #e9ecef; }
 .btn-full { flex: 0 0 100%; }
 
-@media (max-width: 600px) {
-    .botones-grid { grid-template-columns: 1fr; }
+@media (max-width: 500px) {
+    .acciones-grid { grid-template-columns: 1fr; }
 }
-
-/* --- Nueva Ventana de Admisión --- */
-.modal-admision-nuevo {
-    background: var(--bg-card);
-    width: 100%;
-    max-width: 520px;
-    max-height: 90vh;
-    border-radius: 24px;
-    padding: 30px 24px;
-    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
-    position: relative;
-    overflow-y: auto;
-    animation: popInModal 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-.btn-cerrar-x {
-    position: absolute; top: 15px; right: 15px;
-    background: var(--bg-panel); border: none; width: 36px; height: 36px; border-radius: 50%;
-    font-size: 1.2rem; cursor: pointer; color: var(--text-main); transition: 0.2s;
-}
-.btn-cerrar-x:hover { background: #ffcccc; color: #B23A48; }
-.adm-header { text-align: center; margin-bottom: 20px; }
-.adm-header h2 { font-family: var(--font-display); color: var(--verde-oscuro); font-size: 1.6rem; }
-.adm-header p { color: var(--text-main); font-size: 0.9rem; opacity: 0.8; }
-
-/* Pasos visuales */
-.adm-paso { display: flex; gap: 15px; margin-bottom: 20px; }
-.adm-paso-num {
-    width: 32px; height: 32px; background: #3E7CB1; color: #fff; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0;
-}
-.adm-paso-contenido h3 { font-size: 1.05rem; color: var(--text-heading); margin-bottom: 4px; }
-.adm-paso-contenido p { font-size: 0.85rem; color: var(--text-main); margin-bottom: 10px; line-height: 1.4; }
-.adm-check {
-    display: flex; align-items: center; gap: 10px; background: var(--bg-panel); padding: 10px 14px;
-    border-radius: 10px; margin-bottom: 8px; cursor: pointer; font-size: 0.9rem; border: 1px solid var(--border-soft);
-}
-.adm-check input { width: 20px; height: 20px; accent-color: #0B6E4F; }
-.adm-check.hecho { border-color: #0B6E4F; background: #E7F3EC; }
-.btn-adm-ir {
-    width: 100%; padding: 12px; border-radius: 10px; background: #f47b20; color: #fff;
-    font-weight: 700; border: none; cursor: pointer; margin-top: 5px; transition: 0.2s;
-}
-.btn-adm-ir:hover { background: #ff8c38; }
-.btn-principal-adm { background: #0B6E4F; padding: 16px; font-size: 1.05rem; }
-.btn-reiniciar-adm {
-    display: block; width: 100%; margin-top: 15px; padding: 12px; background: transparent;
-    border: 2px dashed var(--border-soft); border-radius: 12px; color: var(--text-main);
-    cursor: pointer; font-weight: 600;
-}
-.adm-felicidades { background: #E7F3EC; border: 2px solid #0B6E4F; border-radius: 14px; padding: 15px; text-align: center; margin-top: 15px; }
 </style>
 <style>
-/* ===== FORZAR DISEÑO LIMPIO (Ignorar caché viejo) ===== */
-main {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 20px !important;
+/* ETAPA 4: VENTANAS EMERGENTES MODERNAS */
+.modal-estadisticas-overlay {
+    position: fixed; inset: 0; z-index: 10000;
+    background: rgba(10, 30, 20, 0.65);
+    backdrop-filter: blur(4px);
+    display: flex; align-items: center; justify-content: center; padding: 15px;
+    animation: fadeIn 0.3s ease;
 }
-.panel-control {
-    background: #ffffff !important;
-    border: 1px solid rgba(0,0,0,0.1) !important;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
-    position: relative !important;
-    z-index: 10 !important;
+.modal-moderno, .modal-estadisticas {
+    background: var(--bg-card);
+    width: 100%; max-width: 450px;
+    max-height: 85vh;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+    position: relative;
+    display: flex; flex-direction: column;
+    overflow-y: auto;0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
 }
+@keyframes subirModal {
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.btn-cerrar-moderno {
+    position: absolute; top: 15px; right: 15px;
+    width: 36px; height: 36px; border-radius: 50%;
+    background: #f0f0f0; color: #333; border: none;
+    font-size: 1.2rem; cursor: pointer; z-index: 10;
+    display: flex; align-items: center; justify-content: center;
+    transition: 0.2s;
+}
+.btn-cerrar-moderno:hover { background: #e0e0e0; }
+.modal-header-moderno {
+    padding: 25px 25px 15px; text-align: center;
+    border-bottom: 1px solid var(--border-soft);
+}
+.modal-header-moderno h2 {
+    font-family: var(--font-display); font-size: 1.5rem;
+    color: var(--verde-oscuro); margin-bottom: 4px;
+}
+.modal-header-moderno p { font-size: 0.9rem; color: #666; }
+.modal-body-moderno { padding: 20px 25px; overflow-y: auto; flex: 1; }
+.modal-footer-moderno { padding: 15px 25px 25px; border-top: 1px solid var(--border-soft); }
+.paso-card {
+    display: flex; gap: 15px; margin-bottom: 15px;
+    background: #f9f9f9; padding: 15px; border-radius: 16px;
+}
+.paso-numero {
+    width: 32px; height: 32px; background: #3E7CB1; color: #fff;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 1.1rem; flex-shrink: 0;
+}
+.paso-contenido h3 { font-size: 1.05rem; color: var(--text-heading); margin-bottom: 4px; }
+.paso-contenido p { font-size: 0.85rem; color: var(--text-main); margin-bottom: 10px; line-height: 1.4; }
+.btn-accion-modal {
+    width: 100%; padding: 12px; border-radius: 10px; background: #f47b20; color: #fff;
+    font-weight: 700; border: none; cursor: pointer; transition: 0.2s; margin-bottom: 10px;
+}
+.btn-accion-modal:hover { background: #ff8c38; }
+.adm-check {
+    display: flex; align-items: center; gap: 10px; background: #fff;
+    padding: 12px; border-radius: 10px; margin-bottom: 8px;
+    cursor: pointer; font-size: 0.9rem; border: 1px solid var(--border-soft);
+}
+.adm-check input { width: 20px; height: 20px; accent-color: #0B6E4F; }
+.btn-reiniciar-adm {
+    width: 100%; padding: 12px; background: transparent; border: 2px dashed #ccc;
+    border-radius: 12px; color: #666; cursor: pointer; font-weight: 600;
+}
+</style>
+<style>
+/* =========================================================
+   MAPA INTERACTIVO PREMIUM (Solo diseño visual)
+   ========================================================= */
+
+/* Contenedor principal del mapa (más elegante) */
 .contenedor3d {
-    position: relative !important;
-    z-index: 1 !important;
-    width: 100% !important;
+    border-radius: 24px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    margin-bottom: 20px;
 }
-.btn-naranja { background: #f47b20 !important; color: #fff !important; }
-.btn-azul { background: #3E7CB1 !important; color: #fff !important; }
+
+/* Botones flotantes sobre el mapa (Cerrar, Centrar, etc.) */
+.btn-cerrar-3d, .btn-centrar-3d {
+    border-radius: 50px !important;
+    background: #ffffff !important;
+    color: #0A4A35 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2) !important;
+    padding: 10px 18px !important;
+    border: none !important;
+    transition: all 0.3s ease !important;
+}
+.btn-cerrar-3d:hover, .btn-centrar-3d:hover {
+    background: #f0f0f0 !important;
+    transform: translateY(-2px) !important;
+}
+
+/* Leyenda de Facultades (Efecto Cristal) */
+.leyenda-3d {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255,255,255,0.5) !important;
+    border-radius: 16px !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15) !important;
+    padding: 10px 15px !important;
+}
+.leyenda-3d summary {
+    color: #0A4A35 !important;
+    font-size: 0.9rem !important;
+    padding: 4px;
+}
+
+/* Tarjeta de destino seleccionado (Cuando tocas un pin) */
+.tarjeta-destino-3d {
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+    border-radius: 18px !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25) !important;
+    border-left: none !important; /* Quitamos la línea roja vieja */
+    border-top: 6px solid #ff1744 !important; /* Línea de color arriba */
+    padding: 16px 20px !important;
+}
+.tarjeta-destino-3d h4 {
+    font-size: 1.1rem !important;
+    color: #0A4A35 !important;
+    margin-bottom: 6px !important;
+}
+.tarjeta-destino-3d button#btnQuitarDestino3D {
+    background: #f0f0f0 !important;
+    border-radius: 50% !important;
+    width: 30px !important;
+    height: 30px !important;
+    top: 10px !important;
+    right: 10px !important;
+}
+
+/* Panel de estado (El mensaje que sale debajo del mapa) */
+.info-panel {
+    border-radius: 16px !important;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05) !important;
+    border: 1px solid rgba(0,0,0,0.05) !important;
+    border-left: 6px solid #f47b20 !important;
+}
+
+/* Panel de indicaciones paso a paso (Las flechas de caminata) */
+.instrucciones-panel {
+    border-radius: 16px !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08) !important;
+    border: 1px solid #e0e0e0 !important;
+    background: #ffffff !important;
+}
+</style>
+<style>
+/* =========================================================
+   EXPERIENCIA MÓVIL (Celulares y Tablets)
+   ========================================================= */
+
+/* 1. Evitar scroll horizontal (que la página no "baile" de lado) */
+html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+}
+
+@media (max-width: 768px) {
+    /* 2. Ajustes generales del cuerpo */
+    body {
+        padding: 0 !important;
+    }
+    .container {
+        border-radius: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* 3. El encabezado más compacto */
+    header.hero {
+        padding: 15px 20px !important;
+    }
+    header.hero h1 {
+        font-size: 1.4rem !important;
+    }
+    .subtitulo {
+        font-size: 0.8rem !important;
+    }
+
+    /* 4. Panel de control (Tarjetas) */
+    .panel-control {
+        padding: 15px !important;
+        border-radius: 16px 16px 0 0 !important;
+        margin-bottom: 0 !important;
+    }
+    .panel-header h3 {
+        font-size: 1.2rem !important;
+    }
+    
+    /* Las tarjetas se vuelven 1 columna en celulares muy pequeños */
+    @media (max-width: 400px) {
+        .acciones-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+
+    /* Botones más fáciles de presionar (Mínimo 48px de alto) */
+    .accion-card {
+        padding: 18px 12px !important;
+    }
+    .accion-info h4 {
+        font-size: 1.05rem !important;
+    }
+    .card-buscar select {
+        font-size: 16px !important; /* Evita que el iPhone haga zoom automático */
+        min-height: 48px !important;
+    }
+    .btn-mini {
+        min-height: 48px !important;
+        font-size: 0.9rem !important;
+    }
+
+    /* 5. Ventanas Emergentes (Modales) en celular */
+    .modal-estadisticas-overlay {
+        padding: 10px !important;
+        align-items: flex-end !important; /* Aparecen desde abajo como app nativa */
+    }
+    .modal-moderno, .modal-estadisticas {
+        width: 100% !important;
+        max-width: 100% !important;
+        max-height: 90vh !important; /* No tapa toda la pantalla */
+        border-radius: 24px 24px 0 0 !important;
+        margin: 0 !important;
+    }
+    .modal-header-moderno {
+        padding: 20px 20px 10px !important;
+    }
+    .modal-body-moderno {
+        padding: 15px 20px !important;
+    }
+    .paso-card {
+        padding: 12px !important;
+        gap: 10px !important;
+    }
+    .btn-accion-modal, .btn-entendido, .btn-reiniciar-adm {
+        min-height: 52px !important;
+        font-size: 1rem !important;
+    }
+
+    /* 6. Mapa 3D en celular */
+    .contenedor3d {
+        height: 65vh !important; /* Ocupa buena parte de la pantalla */
+        min-height: 400px !important;
+        border-radius: 16px 16px 0 0 !important;
+        border: none !important;
+    }
+    .btn-cerrar-3d, .btn-centrar-3d {
+        padding: 8px 14px !important;
+        font-size: 0.85rem !important;
+    }
+
+    /* 7. Botón flotante de ayuda (❓) */
+    .btn-ayuda-flotante {
+        bottom: 15px !important;
+        right: 15px !important;
+        width: 50px !important;
+        height: 50px !important;
+        font-size: 1.3rem !important;
+        z-index: 9990 !important;
+    }
+
+    /* 8. Paneles de indicaciones (Texto de la ruta) */
+    .info-panel {
+        padding: 12px 15px !important;
+        border-radius: 0 !important;
+        margin-top: 0 !important;
+    }
+    .info-panel .message {
+        font-size: 0.9rem !important;
+        line-height: 1.4 !important;
+    }
+    .btn-google {
+        min-height: 48px !important;
+        font-size: 1rem !important;
+        width: 100% !important;
+        margin-top: 10px !important;
+    }
+}
 </style>
 </head>
 <body>
@@ -1871,18 +2306,38 @@ main {
 <div class="portada" id="portada">
     <div class="portada-franja"><span></span><span></span><span></span></div>
     <div class="portada-halo"></div>
+    
     <div class="portada-contenido">
         <div class="portada-eyebrow">UNIVERSIDAD AUTÓNOMA GABRIEL RENÉ MORENO</div>
-        <h1 class="portada-titulo">ADMISIÓN <span class="accent">FCEE</span></h1>
+        <h1 class="portada-titulo">Mapa Inteligente <span class="accent">UAGRM</span></h1>
         
-        <!-- Mascota protagonista (asegúrate de que el archivo se llame mascotafcee.png) -->
-        <img src="mascotafcee.png" alt="Mascota FCEE" class="portada-mascota" onerror="this.src='mascotafcee.jpg'" />
+        <p class="portada-subtitulo">Tu guía virtual para explorar el campus, conocer los pasos de admisión y encontrar tu destino.</p>
+
+        <!-- Mascota protagonista -->
+        <img src="mascotafcee.jpg" alt="Mascota FCEE" class="portada-mascota" onerror="this.style.display='none'" />
         
+        <!-- Explicación visual para principiantes -->
+        <div class="portada-caracteristicas">
+            <div class="caracteristica-item">
+                <span class="caracteristica-icono">🎓</span>
+                <span class="caracteristica-texto">Conoce tu admisión</span>
+            </div>
+            <div class="caracteristica-item">
+                <span class="caracteristica-icono">🗺️</span>
+                <span class="caracteristica-texto">Ubica tu facultad</span>
+            </div>
+            <div class="caracteristica-item">
+                <span class="caracteristica-icono">🚶‍♂️</span>
+                <span class="caracteristica-texto">Sigue tu ruta</span>
+            </div>
+        </div>
+
         <div class="portada-botones">
-            <button class="btn-ingresar" id="btnIngresar">👤 Entrar como visitante</button>
-            <button id="btnPortadaAdmin">🔐 Administrador</button>
+            <button class="btn-ingresar" id="btnIngresar">🚀 Comenzar a explorar</button>
+            <button class="btn-admin-mini" id="btnPortadaAdmin">🔐 Acceso Administrador</button>
         </div>
     </div>
+    
     <div class="portada-franja portada-franja-abajo"><span></span><span></span><span></span></div>
 </div>
 <div class="container" id="appContainer">
@@ -1899,40 +2354,65 @@ main {
     <main>
         <!-- NUEVO PANEL DE CONTROL UI/UX -->
         <div class="panel-control">
-            
-            <!-- BLOQUE 1: EXPLORA -->
-            <div class="seccion-panel">
-                <h3>🎓 Explora la Universidad</h3>
-                <div class="botones-grid">
-                    <button class="btn-moderno btn-naranja" id="btnAccesoAdmision">📋 Admisión FCEE</button>
-                    <button class="btn-moderno btn-azul" id="btnAccesoEventos">🎉 Eventos Universitarios</button>
-                </div>
+            <div class="panel-header">
+                <h3>¿Qué deseas hacer hoy?</h3>
+                <p>Explora la universidad y encuentra lo que necesitas.</p>
             </div>
 
-            <!-- BLOQUE 2: UBÍCATE -->
-            <div class="seccion-panel">
-                <h3>📍 Ubícate en el Campus</h3>
-                <div class="input-grupo">
-                    <label for="targetid">1. Selecciona tu destino:</label>
-                    <select id="targetid">
-                        <option value="">-- Toca aquí para elegir --</option>
-                    </select>
+            <div class="acciones-grid">
+                <!-- 1. ADMISIÓN FCEE -->
+                <button class="accion-card card-admision" id="btnAccesoAdmision">
+                    <div class="accion-icon">🎓</div>
+                    <div class="accion-info">
+                        <h4>Admisión FCEE</h4>
+                        <p>Requisitos y orientación</p>
+                    </div>
+                </button>
+
+                <!-- 2. EVENTOS -->
+                <button class="accion-card card-eventos" id="btnAccesoEventos">
+                    <div class="accion-icon">📅</div>
+                    <div class="accion-info">
+                        <h4>Eventos</h4>
+                        <p>Actividades universitarias</p>
+                    </div>
+                </button>
+            </div>
+
+            <div class="acciones-grid">
+                <!-- 3. EXPLORAR / BUSCAR LUGAR -->
+                <div class="accion-card card-buscar">
+                    <div class="accion-icon">📍</div>
+                    <div class="accion-info" style="width: 100%;">
+                        <h4>Buscar lugar</h4>
+                        <select id="targetid">
+                            <option value="">Encuentra tu destino</option>
+                        </select>
+                    </div>
                 </div>
-                <button class="btn-moderno btn-principal" id="btnMiUbicacion">🚶 2. Llévame al destino</button>
-                
-                <div class="botones-secundarios">
-                    <button class="btn-mini" id="btnEstadisticas">📊 Estadísticas</button>
-                    <button class="btn-mini" id="btnVista3D">🧊 Vista 3D</button>
-                    <button class="btn-mini btn-full" id="btnSubirHorario">📄 Subir mi Horario (PDF)</button>
-                </div>
-                <input type="file" id="inputHorarioPDF" accept="application/pdf" hidden />
-                <div id="resultadoHorario" class="hidden" style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 8px; width: 100%;"></div>
+
+                <!-- 4. CÓMO LLEGAR -->
+                <button class="accion-card card-ruta" id="btnMiUbicacion">
+                    <div class="accion-icon">🛣️</div>
+                    <div class="accion-info">
+                        <h4>Cómo llegar</h4>
+                        <p>Rutas dentro del campus</p>
+                    </div>
+                </button>
+            </div>
+
+            <!-- BOTONES SECUNDARIOS (Herramientas) -->
+            <div class="botones-secundarios">
+                <button class="btn-mini" id="btnEstadisticas">📊 Estadísticas</button>
+                <button class="btn-mini" id="btnVista3D">🧊 Vista 3D</button>
+                <button class="btn-mini btn-full" id="btnSubirHorario">📄 Subir mi Horario (PDF)</button>
             </div>
             
-            <!-- Botones ocultos que el sistema original necesita -->
-            <div style="display:none;">
-                <button id="btnEventos"></button>
-            </div>
+            <input type="file" id="inputHorarioPDF" accept="application/pdf" hidden />
+            <div id="resultadoHorario" class="hidden" style="margin-top: 10px; padding: 10px; background: #f8f9fa; border-radius: 8px; width: 100%;"></div>
+            
+            <!-- Botón oculto necesario para el sistema -->
+            <div style="display:none;"><button id="btnEventos"></button></div>
         </div>
         <div class="leyenda" id="leyenda"></div>
         <div class="panel-offline" id="panelOffline">
@@ -2137,69 +2617,73 @@ main {
     </div>
 </div>
 
-<!-- ===== Admisión FCEE (nuevos bachilleres) ===== -->
-<!-- ===== Admisión FCEE (Rediseñado UI/UX) ===== -->
+<!-- ===== Admisión FCEE (Etapa 4: Diseño Compacto) ===== -->
 <div class="modal-estadisticas-overlay hidden" id="modalAdmisionOverlay" style="z-index:10040;">
-    <div class="modal-admision-nuevo">
+    <div class="modal-moderno">
         
-        <button class="btn-cerrar-x" id="btnCerrarAdmision">✖</button>
+        <!-- Botón de cerrar superior -->
+        <button class="btn-cerrar-moderno" id="btnCerrarAdmision">✖</button>
         
-        <div class="adm-header">
+        <div class="modal-header-moderno">
             <h2>🎓 Admisión FCEE</h2>
             <p>Guía paso a paso para nuevos bachilleres</p>
         </div>
 
+        <!-- Barra de progreso -->
         <div class="adm-progreso">
             <div class="adm-progreso-barra"><div id="admBarra"></div></div>
             <span id="admProgresoTxt">0 de 5 requisitos listos</span>
         </div>
 
-        <!-- PASO 1 -->
-        <div class="adm-paso">
-            <div class="adm-paso-num">1</div>
-            <div class="adm-paso-contenido">
-                <h3>Llega a la universidad</h3>
-                <p>Si vienes de fuera, usa Google Maps para llegar a la puerta principal de la UAGRM.</p>
-                <!-- Botón de mapa externo opcional -->
-                <label class="adm-check">
-                    <input type="checkbox" data-adm-check="form">
-                    <span>Ya estoy en el campus</span>
-                </label>
+        <div class="modal-body-moderno">
+            <!-- PASO 1 -->
+            <div class="paso-card">
+                <div class="paso-numero">1</div>
+                <div class="paso-contenido">
+                    <h3>Llega a la universidad</h3>
+                    <p>Si vienes de fuera, usa Google Maps para llegar a la puerta principal de la UAGRM.</p>
+                    <label class="adm-check">
+                        <input type="checkbox" data-adm-check="form">
+                        <span>Ya estoy en el campus</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- PASO 2 -->
+            <div class="paso-card">
+                <div class="paso-numero">2</div>
+                <div class="paso-contenido">
+                    <h3>Encuentra tu destino</h3>
+                    <p>Acércate al <b>Módulo 244</b> para recoger tu formulario y pagar la matrícula.</p>
+                    <button class="btn-accion-modal" data-adm-ir="35">📍 Llévame al Módulo 244</button>
+                </div>
+            </div>
+
+            <!-- PASO 3 -->
+            <div class="paso-card">
+                <div class="paso-numero">3</div>
+                <div class="paso-contenido">
+                    <h3>Prepara tus documentos</h3>
+                    <p>Marca los documentos que ya tienes listos:</p>
+                    <label class="adm-check"><input type="checkbox" data-adm-check="titulo"><span>Título de bachiller</span></label>
+                    <label class="adm-check"><input type="checkbox" data-adm-check="libreta"><span>Libreta de notas</span></label>
+                    <label class="adm-check"><input type="checkbox" data-adm-check="cedula"><span>Cédula de identidad</span></label>
+                    <label class="adm-check"><input type="checkbox" data-adm-check="recibo"><span>Recibo de pago PSA/CUP</span></label>
+                    <label class="adm-check"><input type="checkbox" data-adm-check="copia"><span>Copia del formulario</span></label>
+                </div>
+            </div>
+
+            <!-- FELICIDADES -->
+            <div class="adm-felicidades adm-oculto" id="admFelicidades">
+                <h3>🎉 ¡Todo listo!</h3>
+                <p>Ahora dirígete al <b>Pabellón 145</b> para entregar tus documentos.</p>
+                <button class="btn-accion-modal" data-adm-ir="7">📍 Entregar en el Pabellón 145</button>
             </div>
         </div>
 
-        <!-- PASO 2 -->
-        <div class="adm-paso">
-            <div class="adm-paso-num">2</div>
-            <div class="adm-paso-contenido">
-                <h3>Encuentra tu destino</h3>
-                <p>Acércate al <b>Módulo 244</b> para recoger tu formulario y pagar la matrícula.</p>
-                <button class="btn-adm-ir" data-adm-ir="35">📍 Llévame al Módulo 244</button>
-            </div>
+        <div class="modal-footer-moderno">
+            <button class="btn-reiniciar-adm" id="admReiniciar" type="button">↺ Reiniciar mi lista</button>
         </div>
-
-        <!-- PASO 3 -->
-        <div class="adm-paso">
-            <div class="adm-paso-num">3</div>
-            <div class="adm-paso-contenido">
-                <h3>Prepara tus documentos</h3>
-                <p>Marca los documentos que ya tienes listos:</p>
-                <label class="adm-check"><input type="checkbox" data-adm-check="titulo"><span>Título de bachiller</span></label>
-                <label class="adm-check"><input type="checkbox" data-adm-check="libreta"><span>Libreta de notas</span></label>
-                <label class="adm-check"><input type="checkbox" data-adm-check="cedula"><span>Cédula de identidad</span></label>
-                <label class="adm-check"><input type="checkbox" data-adm-check="recibo"><span>Recibo de pago PSA/CUP</span></label>
-                <label class="adm-check"><input type="checkbox" data-adm-check="copia"><span>Copia del formulario</span></label>
-            </div>
-        </div>
-
-        <!-- FELICIDADES -->
-        <div class="adm-felicidades adm-oculto" id="admFelicidades">
-            <h3>🎉 ¡Todo listo!</h3>
-            <p>Ahora dirígete al <b>Pabellón 145</b> para entregar tus documentos.</p>
-            <button class="btn-adm-ir btn-principal-adm" data-adm-ir="7">📍 Entregar en el Pabellón 145</button>
-        </div>
-
-        <button class="btn-reiniciar-adm" id="admReiniciar" type="button">↺ Reiniciar mi lista</button>
     </div>
 </div>
 <!-- Alerta grande: fuera del campus -->
@@ -6333,14 +6817,17 @@ if (mapa3D) {
     // Botones grandes Eventos y Admisión (hoja inferior del mapa)
     const fila = document.createElement('div');
     fila.id = 'filaAccesos';
-    fila.innerHTML = '<button id="btnAccesoEventos">🎉<br>Eventos</button><button id="btnAccesoAdmision">🎓<br>Admisión FCEE</button>';
+       fila.innerHTML = '<button id="btnAccesoEventos2">🎉<br>Eventos</button><button id="btnAccesoAdmision2">🎓<br>Admisión FCEE</button>';
     const hoja = $('hojaInferior');
     if (hoja && $('btnMiUbicacion')) hoja.insertBefore(fila, $('btnMiUbicacion'));
     else $('contenedor3D').appendChild(fila);
 
-    $('btnAccesoEventos').addEventListener('click', function() { $('btnEventos').click(); });
-    $('btnAccesoAdmision').addEventListener('click', function() { $('modalAdmisionOverlay').classList.remove('hidden'); });
-    $('btnCerrarAdmision').addEventListener('click', function() { $('modalAdmisionOverlay').classList.add('hidden'); });
+    ['btnAccesoEventos', 'btnAccesoEventos2'].forEach(function(id) {
+        $(id).addEventListener('click', function() { $('btnEventos').click(); });
+    });
+    ['btnAccesoAdmision', 'btnAccesoAdmision2'].forEach(function(id) {
+        $(id).addEventListener('click', function() { $('modalAdmisionOverlay').classList.remove('hidden'); });
+    });    $('btnCerrarAdmision').addEventListener('click', function() { $('modalAdmisionOverlay').classList.add('hidden'); });
     $('modalAdmisionOverlay').addEventListener('click', function(e) { if (e.target === this) this.classList.add('hidden'); });
     document.querySelectorAll('[data-adm-ir]').forEach(function(b) {
         b.addEventListener('click', function() {
@@ -6624,7 +7111,6 @@ setInterval(function() {
     try { estado = JSON.parse(localStorage.getItem(CLAVE) || '{}'); } catch (e) {}
 
     const cajas = document.querySelectorAll('[data-adm-check]');
-    let esperandoForm = false;
 
     function guardar() {
         try { localStorage.setItem(CLAVE, JSON.stringify(estado)); } catch (e) {}
@@ -6634,7 +7120,8 @@ setInterval(function() {
         cajas.forEach(function(c) {
             const marcada = !!estado[c.getAttribute('data-adm-check')];
             c.checked = marcada;
-            c.closest('.adm-item').classList.toggle('hecho', marcada);
+            const fila = c.closest('.adm-check');
+            if (fila) fila.classList.toggle('hecho', marcada);
         });
         const hechos = REQUISITOS.filter(function(k) { return estado[k]; }).length;
         $('admBarra').style.width = (hechos / REQUISITOS.length * 100) + '%';
@@ -6642,38 +7129,12 @@ setInterval(function() {
         $('admFelicidades').classList.toggle('adm-oculto', hechos < REQUISITOS.length);
     }
 
-    // Marcar / desmarcar a mano
     cajas.forEach(function(c) {
         c.addEventListener('change', function() {
-            const clave = c.getAttribute('data-adm-check');
-            estado[clave] = c.checked;
-            if (clave === 'form' && c.checked) estado.copia = true; // el formulario completa la copia
+            estado[c.getAttribute('data-adm-check')] = c.checked;
             guardar();
             pintar();
         });
-    });
-
-    // Al tocar "Abrir el formulario": recordamos que se fue a llenarlo
-    $('admAbrirForm').addEventListener('click', function() { esperandoForm = true; });
-
-    // Al volver a la página, preguntamos si ya lo envió
-    document.addEventListener('visibilitychange', function() {
-        if (document.visibilityState === 'visible' && esperandoForm) {
-            esperandoForm = false;
-            $('admPreguntaForm').classList.remove('adm-oculto');
-        }
-    });
-
-    $('admFormSi').addEventListener('click', function() {
-        estado.form = true;
-        estado.copia = true;
-        guardar();
-        pintar();
-        $('admPreguntaForm').classList.add('adm-oculto');
-        mostrarToastCerca('✅ Formulario marcado. Sigue con tus documentos.');
-    });
-    $('admFormNo').addEventListener('click', function() {
-        $('admPreguntaForm').classList.add('adm-oculto');
     });
 
     $('admReiniciar').addEventListener('click', function() {
@@ -7309,23 +7770,65 @@ header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100
   }, 500);
 })();
 </script>
-<script>
-    // Conexión segura de los botones nuevos
-    document.addEventListener("DOMContentLoaded", function() {
-        const btnAdmision = document.getElementById('btnAccesoAdmision');
-        if (btnAdmision) {
-            btnAdmision.addEventListener('click', function() {
-                const modal = document.getElementById('modalAdmisionOverlay');
-                if (modal) modal.classList.remove('hidden');
-            });
-        }
 
-        const btnEventos = document.getElementById('btnAccesoEventos');
-        if (btnEventos) {
-            btnEventos.addEventListener('click', function() {
-                const modal = document.getElementById('modalEventosOverlay');
-                if (modal) modal.classList.remove('hidden');
-            });
+<!-- =================  GUÍA PARA PRINCIPIANTES ================= -->
+<button class="btn-ayuda-flotante" id="btnAbrirGuia">❓</button>
+
+<div class="modal-guia-overlay hidden" id="modalGuiaOverlay">
+    <div class="modal-guia">
+        <button class="btn-cerrar-guia" id="btnCerrarGuia">✖</button>
+        <h2>🧭 ¿Cómo usar el mapa?</h2>
+        <p class="guia-sub">Sigue estos 4 pasos sencillos para llegar a tu destino.</p>
+        
+        <div class="guia-pasos">
+            <div class="guia-paso">
+                <div class="guia-num">1</div>
+                <div class="guia-texto">
+                    <h3>¿Qué lugar buscas?</h3>
+                    <p>Usa el menú desplegable en la tarjeta "Buscar lugar" para elegir tu facultad o módulo.</p>
+                </div>
+            </div>
+            
+            <div class="guia-paso">
+                <div class="guia-num">2</div>
+                <div class="guia-texto">
+                    <h3>Selecciona tu destino</h3>
+                    <p>Una vez elegido, el mapa te mostrará dónde queda exactamente.</p>
+                </div>
+            </div>
+            
+            <div class="guia-paso">
+                <div class="guia-num">3</div>
+                <div class="guia-texto">
+                    <h3>Toca "Cómo llegar"</h3>
+                    <p>Presiona la tarjeta verde para que el sistema trace la ruta y active el GPS.</p>
+                </div>
+            </div>
+            
+            <div class="guia-paso">
+                <div class="guia-num">4</div>
+                <div class="guia-texto">
+                    <h3>Sigue la ruta</h3>
+                    <p>Camina siguiendo la flecha azul. ¡El mapa te avisará cuando estés cerca!</p>
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn-entendido" id="btnEntendidoGuia">¡Entendido, a explorar!</button>
+    </div>
+</div>
+<script>
+    // Lógica de la Etapa 3: Abrir y cerrar la guía
+    document.addEventListener('DOMContentLoaded', function() {
+        const btnAbrir = document.getElementById('btnAbrirGuia');
+        const btnCerrar = document.getElementById('btnCerrarGuia');
+        const btnEntendido = document.getElementById('btnEntendidoGuia');
+        const modalGuia = document.getElementById('modalGuiaOverlay');
+
+        if(btnAbrir && modalGuia) {
+            btnAbrir.addEventListener('click', () => modalGuia.classList.remove('hidden'));
+            btnCerrar.addEventListener('click', () => modalGuia.classList.add('hidden'));
+            btnEntendido.addEventListener('click', () => modalGuia.classList.add('hidden'));
         }
     });
 </script>
