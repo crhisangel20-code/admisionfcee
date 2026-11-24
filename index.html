@@ -1868,7 +1868,7 @@ body.rol-admin main { padding-top: 70px; }
     <div class="franja-bandera"><span></span><span></span><span></span></div>
 
     <header class="hero">
-<img class="emblema" src="mascotafcee.jpg" alt="Mascota FCEE" onerror="this.src='https://raw.githubusercontent.com/crhisangel20-code/uagrmlocalizacio/main/mascotafcee.jpg'" />
+<img class="emblema" src="mascotafcee.jpg" alt="Mascota FCEE" />
         <div class="titulo-bloque">
             <h1>Mapa Inteligente <span class="accent">UAGRM</span></h1>
             <div class="subtitulo">Universidad Autónoma Gabriel René Moreno · Orientación y rutas en campus</div>
@@ -7287,6 +7287,26 @@ header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100
     } catch (x) { console.warn('No se pudieron recolorear las calles:', x); }
   }, 500);
 })();
+</script>
+<script>
+    // Conectar los nuevos botones del panel con las funciones originales
+    document.addEventListener("DOMContentLoaded", function() {
+        // Botón Admisión
+        const btnAdmision = document.getElementById('btnAccesoAdmision');
+        if (btnAdmision) {
+            btnAdmision.addEventListener('click', function() {
+                document.getElementById('modalAdmisionOverlay').classList.remove('hidden');
+            });
+        }
+
+        // Botón Eventos
+        const btnEventos = document.getElementById('btnAccesoEventos');
+        if (btnEventos) {
+            btnEventos.addEventListener('click', function() {
+                document.getElementById('modalEventosOverlay').classList.remove('hidden');
+            });
+        }
+    });
 </script>
 </body>
 </html>
