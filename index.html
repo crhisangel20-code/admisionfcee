@@ -1839,6 +1839,28 @@ body.rol-admin main { padding-top: 70px; }
 }
 .adm-felicidades { background: #E7F3EC; border: 2px solid #0B6E4F; border-radius: 14px; padding: 15px; text-align: center; margin-top: 15px; }
 </style>
+<style>
+/* ===== FORZAR DISEÑO LIMPIO (Ignorar caché viejo) ===== */
+main {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+}
+.panel-control {
+    background: #ffffff !important;
+    border: 1px solid rgba(0,0,0,0.1) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+.contenedor3d {
+    position: relative !important;
+    z-index: 1 !important;
+    width: 100% !important;
+}
+.btn-naranja { background: #f47b20 !important; color: #fff !important; }
+.btn-azul { background: #3E7CB1 !important; color: #fff !important; }
+</style>
 </head>
 <body>
 <div class="banner-offline off-oculto" id="bannerOffline"></div>
