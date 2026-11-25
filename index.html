@@ -7647,7 +7647,12 @@ header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100
     if (origen) u += '&origin=' + encodeURIComponent(origen);
     return u;
   }
- 
+   // Mensaje para compartir un colegio por WhatsApp
+  function urlWhatsApp(c) {
+    var enlace = urlRuta('', textoColegio(c));
+    var msg = '🏫 *' + c.n + '*\n📍 Cómo llegar:\n' + enlace;
+    return 'https://wa.me/?text=' + encodeURIComponent(msg);
+  }
   // ---------- 1) Mascota y colores ----------
   document.querySelectorAll('.portada-escudo,.emblema').forEach(function (i) { i.src = MASCOTA; i.alt = 'Mascota FCEE'; });
   var ico = document.querySelector('link[rel="icon"]'); if (ico) ico.href = MASCOTA;
@@ -7715,7 +7720,7 @@ header.hero{background:linear-gradient(135deg,#0A1F5C 0%,#0553F5 62%,#2F7BFF 100
         '<h4>' + e(c.n) + '</h4><div class="ev-meta">' + e(donde) + '</div>' +
         '<div class="ev-acciones">' +
           '<a class="ev-btn col-btn" target="_blank" rel="noopener" href="' + e(urlRuta('', textoColegio(c))) + '">🚗 Cómo llegar al colegio</a>' +
-          '<a class="ev-btn ev-gm col-btn" target="_blank" rel="noopener" href="' + e(urlRuta(textoColegio(c), destinoPuerta())) + '">🎓 Del colegio a la UAGRM</a>' +
+          '<a class="ev-btn col-btn btn-whatsapp" target="_blank" rel="noopener" href="' + e(urlWhatsApp(c)) + '">📲 Compartir por WhatsApp</a>' +
         '</div></div></div>';
     }).join('') : '<div class="ranking-vacio">No hay colegios con ese nombre.</div>';
   }
@@ -8225,5 +8230,57 @@ body.rol-admin .botones-secundarios { margin-top: 0; }
   });
 })();
 </script>
+<style>
+/* ===== Arreglo del modo oscuro ===== */
+
+/* Botones del menú del administrador */
+body.dark-mode .btn-estadisticas,
+body.dark-mode #btnMiCuenta,
+body.dark-mode #btnAdministradores,
+body.dark-mode #btnAdminEventos { color: #ffffff !important; }
+
+/* Botones pequeños (Estadísticas, etc.) */
+body.dark-mode .btn-mini { background: #2f2f48; color: #ffffff; border-color: rgba(255,255,255,.15); }
+body.dark-mode .btn-mini:hover { background: #3a3a58; }
+
+/* Panel de tarjetas del menú */
+body.dark-mode .panel-control { background: #22223a; }
+body.dark-mode .panel-header h3 { color: #F1C773; }
+body.dark-mode .panel-header p,
+body.dark-mode .accion-info p { color: #c9c9dd; }
+body.dark-mode .accion-card { background: #2f2f48; }
+body.dark-mode .card-admision,
+body.dark-mode .card-eventos,
+body.dark-mode .card-buscar,
+body.dark-mode .card-ruta { background: #2f2f48; }
+body.dark-mode .card-admision .accion-info h4 { color: #ffb27a; }
+body.dark-mode .card-eventos .accion-info h4 { color: #8dbcff; }
+body.dark-mode .card-buscar .accion-info h4 { color: #ffffff; }
+body.dark-mode .card-ruta .accion-info h4 { color: #7be0b0; }
+
+/* Títulos de ventanas */
+body.dark-mode .modal-header-moderno h2,
+body.dark-mode .modal-llegada h2,
+body.dark-mode .modal-guia h2 { color: #F1C773; }
+body.dark-mode .modal-header-moderno p,
+body.dark-mode .guia-sub { color: #c9c9dd; }
+body.dark-mode .btn-cerrar-moderno { background: #3a3a58; color: #ffffff; }
+body.dark-mode .btn-reiniciar-adm { color: #c9c9dd; border-color: rgba(255,255,255,.3); }
+body.dark-mode .btn-cerrar-guia { color: #c9c9dd; }
+
+/* Indicaciones paso a paso */
+body.dark-mode .instrucciones-panel { background: #2a2a3e !important; border-color: rgba(255,255,255,.12) !important; }
+body.dark-mode .instrucciones-panel li,
+body.dark-mode .instrucciones-panel h3 { color: #ffffff; }
+
+/* Otros */
+body.dark-mode .ev-input { color: #ffffff; }
+body.dark-mode .col-filtros button { color: #ffffff; }
+body.dark-mode .col-filtros button.on { color: #ffffff; }
+body.dark-mode .ranking-item:hover { background: #3a3a58; }
+body.dark-mode .estadistica-total .valor,
+body.dark-mode .ranking-visitas { color: #F1C773; }
+body.dark-mode .modal-llegada-dato .valor { color: #F1C773; }
+</style>
 </body>
 </html>
