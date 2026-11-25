@@ -2316,7 +2316,7 @@ html, body {
         <p class="portada-subtitulo">Tu guía virtual para explorar el campus, conocer los pasos de admisión y encontrar tu destino.</p>
 
         <!-- Mascota protagonista -->
-        <img src="mascota.png" alt="Mascota FCEE" class="portada-mascota" onerror="this.style.display='none'" />
+        <img src="mascotafcee.png" alt="Mascota FCEE" class="portada-mascota" />
         
         <!-- Explicación visual para principiantes -->
         <div class="portada-caracteristicas">
@@ -3516,8 +3516,8 @@ mapElement.addEventListener('touchcancel', function() {
     // ESTADÍSTICAS: caché local de respaldo + API global de Supabase
     // ===============================================================
        // CONEXIÓN A SUPABASE
-    const SUPABASE_URL = 'https://aiihfjqabglzrbddqjtr.supabase.co';
-    const SUPABASE_KEY = 'sb_publishable_iegkaMAENqisowEcyiEgGg_B_pLq1VI';
+    const SUPABASE_URL = 'https://cqnyngjpdewoakylbryy.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_c-nsryVJu01Rcabflzj4cg_ooJ2KuUR';
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
     let estadisticasGlobales = null;
 
@@ -7945,6 +7945,275 @@ body.dark-mode .adm-check { background: #2a2a3e; }
       if (m === 'admision' && cuerpoAdm) cuerpoAdm.scrollTop = Number(leer(K_SCROLL)) || 0;
     }, 700);
   }, 900);
+})();
+</script>
+<style>
+/* Admin: sin las tarjetas de visitante */
+body.rol-admin .panel-header,
+body.rol-admin .acciones-grid,
+body.rol-admin .btn-ayuda-flotante { display: none !important; }
+body.rol-admin .panel-control { background: transparent; box-shadow: none; padding: 0; }
+body.rol-admin .botones-secundarios { margin-top: 0; }
+
+/* Mascota grande en celular */
+.portada-mascota {
+  height: clamp(240px, 48vh, 440px) !important;
+  width: auto !important;
+  max-width: 92vw !important;
+  object-fit: contain !important;
+}
+
+/* Formulario de colegios */
+.cl-form { background: var(--bg-panel); border-radius: 14px; padding: 12px; margin-bottom: 12px; }
+.cl-form select { width: 100%; }
+</style>
+
+<script>
+// Sacar los botones del administrador del contenedor oculto
+(function () {
+  var cont = document.querySelector('.botones-secundarios');
+  ['btnMiCuenta', 'btnAdministradores', 'btnAdminEventos'].forEach(function (id) {
+    var b = document.getElementById(id);
+    if (b && cont) cont.appendChild(b);
+  });
+})();
+// ============ 1) MASCOTA ============
+(function () {
+  var ARCHIVO = 'mascotafcee.png';   // debe estar en la misma carpeta que index.html
+  document.querySelectorAll('.portada-mascota,.portada-escudo,.emblema').forEach(function (img) {
+    img.style.display = '';
+    img.src = ARCHIVO;
+    img.alt = 'Mascota FCEE';
+  });
+  var ico = document.querySelector('link[rel="icon"]');
+  if (ico) ico.href = ARCHIVO;
+})();
+
+// ============ 2) COLEGIOS: agregar / borrar (solo admin, en Supabase) ============
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]; }); };
+  var norm = function (s) { return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); };
+  var NOMBRE_CAT = { privado:'Privado', fiscal:'Fiscal/Público', provincial:'Provincial/Municipal' };
+
+  var INICIALES = [
+    {nombre:'Colegio Británico Santa Cruz', cat:'privado'},
+    {nombre:'Santa Cruz International School', cat:'privado'},
+    {nombre:'Sierra School', cat:'privado'},
+    {nombre:'Colegio Particular Nueva América', cat:'privado'},
+    {nombre:'Colegio Fe y Alegría María Magdalena Postel', cat:'fiscal'},
+    {nombre:'Florida National College', cat:'fiscal'},
+    {nombre:'Unidad Educativa Máximo Diescher II', cat:'fiscal'},
+    {nombre:'Arzobispo Daniel Rivero', cat:'fiscal'},
+    {nombre:'Colegio Gran Paititi', cat:'provincial', zona:'Warnes'},
+    {nombre:'Centro Educativo Beato Adolfo Kolping', cat:'provincial', zona:'Warnes', dir:'Calle Saavedra 264'},
+    {nombre:'U. E. Elvira Castedo Vda. de Jordan', cat:'provincial', zona:'Warnes'},
+    {nombre:'Constantino School Cuéllar', cat:'provincial', zona:'Warnes'},
+    {nombre:'Unidad Educativa Eugenia Convention Ravasco', cat:'provincial', zona:'Warnes'},
+    {nombre:'Unidad Educativa Nuestra Señora Del Rosario', cat:'provincial', zona:'Warnes'},
+    {nombre:'Colegio Melchor Pinto Parada', cat:'provincial', zona:'Warnes', dir:'RN 4'},
+    {nombre:'Colegio Integración Del Norte', cat:'provincial', zona:'Warnes'},
+    {nombre:'National College La Guardia', cat:'provincial', zona:'La Guardia'},
+    {nombre:'Jose Mariano Serrano I', cat:'provincial', zona:'La Guardia'},
+    {nombre:'Colegio Jose Vicente Soliz Y Ramos', cat:'provincial', zona:'La Guardia'}
+  ];
+
+  // Quitar el panel viejo (lista fija) y dejar un botón limpio
+  var viejoBtn = $('btnColegiosAdmin');
+  var viejoCerrar = $('colCerrar');
+  if (viejoCerrar) { var vo = viejoCerrar.closest('.modal-estadisticas-overlay'); if (vo) vo.remove(); }
+  var btn = viejoBtn ? viejoBtn.cloneNode(true) : document.createElement('button');
+  if (viejoBtn) viejoBtn.replaceWith(btn);
+  else { btn.id = 'btnColegiosAdmin'; btn.className = 'btn-estadisticas solo-admin'; btn.textContent = '🏫 Colegios y rutas'; $('btnEstadisticas').parentNode.insertBefore(btn, $('btnEstadisticas')); }
+
+  var ov = document.createElement('div');
+  ov.className = 'modal-estadisticas-overlay hidden';
+  ov.id = 'ovColegios';
+  ov.style.zIndex = '10045';
+  ov.innerHTML =
+    '<div class="modal-estadisticas modal-ancho">' +
+      '<h2>🏫 Colegios y rutas</h2>' +
+      '<div class="cl-form">' +
+        '<input class="ev-input" id="clNombre" maxlength="120" placeholder="Nombre del colegio">' +
+        '<select class="ev-input" id="clCat">' +
+          '<option value="privado">Privado</option><option value="fiscal">Fiscal/Público</option><option value="provincial">Provincial/Municipal</option>' +
+        '</select>' +
+        '<input class="ev-input" id="clZona" placeholder="Zona (opcional, ej. Warnes)">' +
+        '<input class="ev-input" id="clDir" placeholder="Dirección (opcional)">' +
+        '<button class="ev-btn btn-ancho" id="clAgregar">➕ Agregar colegio</button>' +
+        '<p class="ev-msg" id="clMsg"></p>' +
+      '</div>' +
+      '<input class="ev-input" id="clBuscar" type="search" placeholder="Buscar colegio" autocomplete="off">' +
+      '<div class="col-filtros" id="clFiltros">' +
+        '<button type="button" data-cat="todos" class="on">Todos</button>' +
+        '<button type="button" data-cat="privado">Privados</button>' +
+        '<button type="button" data-cat="fiscal">Fiscales</button>' +
+        '<button type="button" data-cat="provincial">Provinciales</button>' +
+      '</div>' +
+      '<p class="ev-msg" id="clContador"></p>' +
+      '<div id="clLista"></div>' +
+      '<button class="btn-cerrar-estadisticas" id="clCerrar">Cerrar</button>' +
+    '</div>';
+  document.body.appendChild(ov);
+
+  var datos = [], catActual = 'todos';
+  function msg(t, error) { var m = $('clMsg'); m.textContent = t || ''; m.style.color = error ? '#B23A48' : ''; }
+  function puerta() {
+    try { return new URL($('admLlegarGM').href).searchParams.get('destination'); }
+    catch (e) { return 'Universidad Autónoma Gabriel René Moreno, Santa Cruz de la Sierra, Bolivia'; }
+  }
+  function urlRuta(origen, destino) {
+    var u = 'https://www.google.com/maps/dir/?api=1&destination=' + encodeURIComponent(destino) + '&travelmode=driving';
+    if (origen) u += '&origin=' + encodeURIComponent(origen);
+    return u;
+  }
+  function textoCol(c) { return c.nombre + (c.dir ? ', ' + c.dir : '') + (c.zona ? ', ' + c.zona : '') + ', Santa Cruz, Bolivia'; }
+
+  function pintar() {
+    var q = norm($('clBuscar').value.trim());
+    var lista = datos.filter(function (c) {
+      return (catActual === 'todos' || c.cat === catActual) && norm(c.nombre).indexOf(q) !== -1;
+    });
+    $('clContador').textContent = lista.length + (lista.length === 1 ? ' colegio' : ' colegios');
+    var html = lista.map(function (c) {
+      var donde = (c.dir ? c.dir + ' · ' : '') + (c.zona ? c.zona + ', ' : '') + 'Santa Cruz, Bolivia';
+      return '<div class="ev-card"><div class="ev-card-body">' +
+        '<span class="col-etq">' + NOMBRE_CAT[c.cat] + '</span>' +
+        '<h4>' + esc(c.nombre) + '</h4><div class="ev-meta">' + esc(donde) + '</div>' +
+        '<div class="ev-acciones">' +
+          '<a class="ev-btn col-btn" target="_blank" rel="noopener" href="' + esc(urlRuta('', textoCol(c))) + '">🚗 Cómo llegar al colegio</a>' +
+          '<a class="ev-btn ev-gm col-btn" target="_blank" rel="noopener" href="' + esc(urlRuta(textoCol(c), puerta())) + '">🎓 Del colegio a la UAGRM</a>' +
+'<button class="ev-btn btn-whatsapp" data-cl-wa="' + c.id + '">📲 Compartir por WhatsApp</button>' +          
+'<button class="ev-btn ev-del" data-cl-del="' + c.id + '" data-n="' + esc(c.nombre) + '">🗑️ Borrar</button>' +
+        '</div></div></div>';
+    }).join('');
+    if (!datos.length) {
+      html = '<div class="ranking-vacio">Aún no hay colegios guardados.</div>' +
+             '<button class="ev-btn btn-ancho" id="clSemilla">📥 Cargar los ' + INICIALES.length + ' colegios iniciales</button>';
+    } else if (!lista.length) {
+      html = '<div class="ranking-vacio">No hay colegios con ese nombre.</div>';
+    }
+    $('clLista').innerHTML = html;
+  }
+
+  async function cargar() {
+    msg('Cargando…');
+    var r = await _supabase.from('colegios').select('*').order('nombre');
+    if (r.error) { msg('⚠️ ' + r.error.message, true); datos = []; }
+    else { msg(''); datos = r.data || []; }
+    pintar();
+  }
+
+  async function agregar() {
+    var nombre = $('clNombre').value.trim();
+    if (nombre.length < 3) return msg('Escribe el nombre (mínimo 3 letras).', true);
+    var b = $('clAgregar'); b.disabled = true; msg('Guardando…');
+    var r = await _supabase.from('colegios').insert({
+      nombre: nombre, cat: $('clCat').value,
+      zona: $('clZona').value.trim() || null, dir: $('clDir').value.trim() || null
+    });
+    b.disabled = false;
+    if (r.error) return msg('Error: ' + r.error.message, true);
+    $('clNombre').value = ''; $('clZona').value = ''; $('clDir').value = '';
+    msg('✅ Colegio agregado.');
+    cargar();
+  }
+
+  btn.addEventListener('click', function () { ov.classList.remove('hidden'); cargar(); });
+  $('clCerrar').addEventListener('click', function () { ov.classList.add('hidden'); });
+  ov.addEventListener('click', function (e) { if (e.target === ov) ov.classList.add('hidden'); });
+  $('clAgregar').addEventListener('click', agregar);
+  $('clBuscar').addEventListener('input', pintar);
+  $('clFiltros').addEventListener('click', function (e) {
+    var b = e.target.closest('button'); if (!b) return;
+    catActual = b.getAttribute('data-cat');
+    document.querySelectorAll('#clFiltros button').forEach(function (x) { x.classList.toggle('on', x === b); });
+    pintar();
+  });
+  $('clLista').addEventListener('click', async function (e) {
+    var w = e.target.closest('[data-cl-wa]');
+    if (w) {
+      var col = datos.find(function (x) { return String(x.id) === w.getAttribute('data-cl-wa'); });
+      if (!col) return;
+      var texto = '🏫 *' + col.nombre + '*\n' +
+        (col.dir ? '📍 ' + col.dir + '\n' : '') + (col.zona ? '🗺️ ' + col.zona + '\n' : '') +
+        '\n🚗 Cómo llegar al colegio (desde tu ubicación):\n' + urlRuta('', textoCol(col)) +
+        '\n\n🎓 Del colegio a la UAGRM:\n' + urlRuta(textoCol(col), puerta());
+      window.open('https://wa.me/?text=' + encodeURIComponent(texto), '_blank', 'noopener');
+      return;
+    }
+    var d = e.target.closest('[data-cl-del]');
+    if (d) {
+      if (!confirm('¿Borrar "' + d.getAttribute('data-n') + '"?')) return;
+      var r = await _supabase.from('colegios').delete().eq('id', d.getAttribute('data-cl-del'));
+      if (r.error) return msg('Error: ' + r.error.message, true);
+      cargar();
+    } else if (e.target.closest('#clSemilla')) {
+      var ins = await _supabase.from('colegios').insert(INICIALES);
+      if (ins.error) return msg('Error: ' + ins.error.message, true);
+      cargar();
+    }
+  });
+})();
+
+// ============ 3) CONÓCENOS (Admisión) ============
+(function () {
+  var FORMULARIO_URL = '';   // ← pega aquí el enlace del formulario cuando lo tengas
+  var html =
+    '<details class="adm-conocenos"><summary>👋 Conócenos</summary>' +
+    '<div class="adm-conocenos-cuerpo">' +
+      '<p>Síguenos para enterarte de fechas, requisitos y novedades de la admisión.</p>' +
+      '<div class="adm-redes">' +
+        '<a class="red-ig" target="_blank" rel="noopener" href="https://www.instagram.com/admision.fcee/">📸 Instagram</a>' +
+        '<a class="red-fb" target="_blank" rel="noopener" href="https://www.facebook.com/p/Admisi%C3%B3n-Estudiantil-uagrm-fcee-61555345370054/?locale=es_LA">👍 Facebook</a>' +
+        '<a class="red-tt" target="_blank" rel="noopener" href="https://www.tiktok.com/@admision.estudiantilfcee">🎵 TikTok</a>' +
+      '</div>' +
+      (FORMULARIO_URL ? '<a class="btn-adm-ir" target="_blank" rel="noopener" href="' + FORMULARIO_URL + '">📝 Abrir formulario</a>' : '') +
+    '</div></details>';
+  var ref = document.getElementById('admFelicidades');
+  if (ref) ref.insertAdjacentHTML('afterend', html);
+})();
+
+// ============ 4) BOTÓN "ATRÁS" ============
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var SEL = '.modal-estadisticas-overlay,.modal-login-overlay,.modal-guia-overlay';
+  var n = 0;
+  document.querySelectorAll(SEL).forEach(function (el) { if (!el.id) el.id = 'ov' + (n++); });
+
+  var pasos = 0, ignorar = 0;
+
+  function abiertos() {
+    var l = [];
+    if (document.body.classList.contains('menu-abierto')) l.push('menu');
+    document.querySelectorAll(SEL).forEach(function (el) {
+      if (!el.classList.contains('hidden')) l.push(el.id);
+    });
+    return l;
+  }
+
+  setInterval(function () {
+    var ab = abiertos().length;
+    if (ab > pasos) {
+      while (pasos < ab) { history.pushState({ capa: 1 }, ''); pasos++; }
+    } else if (ab < pasos) {
+      var dif = pasos - ab;
+      pasos = ab;
+      ignorar = 1;
+      history.go(-dif);
+    }
+  }, 300);
+
+  window.addEventListener('popstate', function () {
+    if (ignorar > 0) { ignorar--; return; }
+    var ab = abiertos();
+    if (!ab.length) { pasos = 0; return; }
+    var ultima = ab[ab.length - 1];
+    pasos = Math.max(0, pasos - 1);
+    if (ultima === 'menu') { var v = $('btnVolverMapa'); if (v) v.click(); }
+    else { var el = $(ultima); if (el) el.classList.add('hidden'); }
+  });
 })();
 </script>
 </body>
