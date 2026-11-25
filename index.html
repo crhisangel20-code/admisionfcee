@@ -7930,7 +7930,16 @@ body.dark-mode .adm-check { background: #2a2a3e; }
   if (cuerpoAdm) cuerpoAdm.addEventListener('scroll', function () {
     guardar(K_SCROLL, String(cuerpoAdm.scrollTop));
   });
+  // Al salir se borra todo lo recordado
+  var btnSalirM = $('btnSalirModo');
+  if (btnSalirM) btnSalirM.addEventListener('click', function () {
+    [K_ENTRO, K_ADMIN, K_MODAL, K_SCROLL].forEach(borrar);
+  });
 
+  // Solo recuerda si la página se recargó o si volviste con "atrás"
+  var tipoNav = 'navigate';
+  try { tipoNav = performance.getEntriesByType('navigation')[0].type; } catch (e) {}
+  if (tipoNav === 'navigate') { [K_ENTRO, K_ADMIN, K_MODAL, K_SCROLL].forEach(borrar); }
   // Al cargar la página: si ya habías entrado, te devuelve a donde estabas
   setTimeout(function () {
     if (leer(K_ENTRO) !== '1') return;
