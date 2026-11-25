@@ -8281,6 +8281,27 @@ body.dark-mode .ranking-item:hover { background: #3a3a58; }
 body.dark-mode .estadistica-total .valor,
 body.dark-mode .ranking-visitas { color: #F1C773; }
 body.dark-mode .modal-llegada-dato .valor { color: #F1C773; }
+/* ===== Lista desplegable de destinos ===== */
+
+/* Modo claro: fondo blanco, texto oscuro */
+#targetid option,
+#targetid optgroup {
+    background-color: #ffffff;
+    color: #0A1F5C;
+}
+
+/* Modo oscuro: fondo oscuro, texto blanco */
+body.dark-mode #targetid option,
+body.dark-mode #targetid optgroup {
+    background-color: #2a2a3e;
+    color: #ffffff;
+}
+
+/* Barra superior en modo oscuro: que la flecha y el texto se vean */
+body.dark-mode #barraSuperior #targetid {
+    color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3' stroke-linecap='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+}
 </style>
 </body>
 </html>
